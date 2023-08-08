@@ -1,4 +1,4 @@
-package Utility;
+package utility;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,11 +12,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
-/**
- *
- * @author Jia Qing
- */
-public class Utility {
+public class Validate {
 
     //String input and validation function, digit input is not allowed 
     public static String stringInput(String promptMsg, String errorMsg) {

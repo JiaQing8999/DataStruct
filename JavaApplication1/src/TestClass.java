@@ -1,6 +1,6 @@
 /**
  *
- * @author Jia Qing
+ * @author Lim Jia Qing
  */
 public class TestClass {
     
