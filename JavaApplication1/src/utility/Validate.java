@@ -20,7 +20,7 @@ public class Validate {
         int loop;
         Scanner sc = new Scanner(System.in);
         do {
-            loop = 0;
+            loop = 0;2
             System.out.print(promptMsg);
             input = sc.nextLine();
             if (input.length() == 0) {
