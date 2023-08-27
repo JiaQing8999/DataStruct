@@ -8,10 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 
+/**
+ *
+ * @author Lim Jia Qing
+ */
 public class Validate {
 
     //String input and validation function, digit input is not allowed 
@@ -328,23 +329,4 @@ public class Validate {
         return (int) difference_In_Years;
     }
 
-    //Clear screen function
-    public static void clearScreen() {
-        try {
-            Robot robot = new Robot();
-            robot.setAutoDelay(10);
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_L);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-            robot.keyRelease(KeyEvent.VK_L);
-        } catch (AWTException ex) {
-        }
-    }
-
-    //System pause function
-    public static void systemPause() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Press <Enter> to continue...");
-        sc.nextLine();
-    }
 }

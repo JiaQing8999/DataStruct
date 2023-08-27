@@ -1,6 +1,6 @@
 package boundary;
 
-import utility.Validate;
+import utility.*;
 
 /**
  *
@@ -12,7 +12,7 @@ public class Parts {
     public static void header(String headerName) {
         String headerLength = "";
         
-        Validate.clearScreen();
+        Seperate.clearScreen();
         for (int i = 0; i < headerName.length(); i++) {
             headerLength += "=";
         }

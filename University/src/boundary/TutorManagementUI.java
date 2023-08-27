@@ -9,9 +9,10 @@ import utility.Validate;
  */
 public class TutorManagementUI {
 
+    //Main menu of tutor module
     public int getMenuSelection() {
         int selection = 0;
-        
+
         header("Tutor");
         System.out.println("1 - Add tutor");
         System.out.println("2 - Find tutor");
@@ -23,14 +24,18 @@ public class TutorManagementUI {
         System.out.println("0 - Close" + "\n");
 
         do {
-            selection = Validate.intInput("Selection > ", "  Integer input only.");
-            if(selection > 6 || selection < 0)
+            selection = Validate.intInput("Selection > ", "  Integer input only.");     //Only integer accepted.
+            if (selection > 6 || selection < 0) {
                 System.out.println("  Select only 0 - 6.");
-        } while (selection > 6 || selection < 0);
+            }
+        } while (selection > 6 || selection < 0);       //Only 0-6 accepted.
 
         return selection;
     }
-
+    
+    public void ()
+    
+    //TEST HERE
     public static void main(String[] args) {
         TutorManagementUI t = new TutorManagementUI();
         t.getMenuSelection();
