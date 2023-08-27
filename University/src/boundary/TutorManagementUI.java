@@ -1,7 +1,7 @@
 package boundary;
 
-import static boundary.Parts.header;
-import utility.Validate;
+import static boundary.Parts.*;
+import utility.*;
 
 /**
  *
@@ -36,6 +36,16 @@ public class TutorManagementUI {
     public String inputName(){
         String name = Validate.stringNullCheckingInput("Enter Name : ", "Name cannot be empty.");
         return name;
+    }
+    
+    public String inputIC(){
+        String ic = Validate.icInput("Enter IC number : ");
+        return ic;
+    }
+    
+    public String inputContactNum(){
+        String phoneNum = Validate.phoneInput("Enter Contact number (without \"-\") : ");
+        return phoneNum;
     }
     
     //TEST HERE
