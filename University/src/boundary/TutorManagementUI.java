@@ -33,7 +33,10 @@ public class TutorManagementUI {
         return selection;
     }
     
-    public void ()
+    public String inputName(){
+        String name = Validate.stringNullCheckingInput("Enter Name : ", "Name cannot be empty.");
+        return name;
+    }
     
     //TEST HERE
     public static void main(String[] args) {
