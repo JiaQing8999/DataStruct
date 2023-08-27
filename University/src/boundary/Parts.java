@@ -21,7 +21,4 @@ public class Parts {
         System.out.println("===" + headerLength + "===" + "\n");
     }
     
-    public static void main(String[] args) {
-        header("Tutor");
-    }
 }
