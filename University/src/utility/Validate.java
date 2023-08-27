@@ -18,117 +18,130 @@ public class Validate {
     //String input and validation function, digit input is not allowed 
     public static String stringInput(String promptMsg, String errorMsg) {
         String input;
-        int loop;
+        boolean invalidInput;
         Scanner sc = new Scanner(System.in);
+
         do {
-            loop = 0;
+            invalidInput = false;
             System.out.print(promptMsg);
             input = sc.nextLine();
+
             if (input.length() == 0) {
                 System.out.println(errorMsg);
-                loop = 1;
+                invalidInput = true;
                 continue;
             }
+
             for (int i = 0; i < input.length(); i++) {
-                if (Character.isLetter(input.charAt(i)) == false && input.charAt(i) != ' ') {
+                if (!Character.isLetter(input.charAt(i)) && input.charAt(i) != ' ') {
                     System.out.println(errorMsg);
-                    loop = 1;
+                    invalidInput = true;
                     break;
                 }
             }
-        } while (loop == 1);
+        } while (invalidInput);
+
         return input;
     }
 
     //String input and validation function, validate for null input
     public static String stringNullCheckingInput(String promptMsg, String errorMsg) {
         String input;
-        int loop;
+        boolean invalidInput;
         Scanner sc = new Scanner(System.in);
+
         do {
-            loop = 0;
+            invalidInput = false;
             System.out.print(promptMsg);
             input = sc.nextLine();
-            if (input.length() == 0) {
-                loop = 1;
-            }
-        } while (loop == 1);
-        return input;
 
+            if (input.length() == 0) {
+                invalidInput = true;
+            }
+        } while (invalidInput);
+
+        return input;
     }
 
     //Integer input and validation function
     public static int intInput(String promptMsg, String errorMsg) {
         int input = 0;
-        int loop;
+        boolean invalidInput;
         Scanner sc = new Scanner(System.in);
+
         do {
-            loop = 0;
+            invalidInput = false;
             System.out.print(promptMsg);
+
             try {
                 input = sc.nextInt();
             } catch (Exception e) {
-                sc.nextLine();      //get rid of the newline if string is inputted.
+                sc.nextLine(); // Get rid of the newline if a string is inputted.
                 System.out.println(errorMsg);
-                loop = 1;
+                invalidInput = true;
             }
-        } while (loop == 1);
+        } while (invalidInput);
+
         return input;
     }
 
     //Double input and validation function
     public static double doubleInput(String promptMsg, String errorMsg) {
         double input = 0.00;
-        int loop;
+        boolean invalidInput;
         Scanner sc = new Scanner(System.in);
-        do {
 
-            loop = 0;
+        do {
+            invalidInput = false;
             System.out.print(promptMsg);
+
             try {
                 input = sc.nextDouble();
-
             } catch (Exception e) {
-                sc.nextLine();      //get rid of the newline if string is inputted.
+                sc.nextLine();      // Get rid of the newline if a string is inputted.
                 System.out.println(errorMsg);
-                loop = 1;
+                invalidInput = true;
             }
 
-        } while (loop == 1);
+        } while (invalidInput);
+
         return input;
     }
 
     //Character input and validation function
     public static char charInput(String promptMsg, String errorMsg) {
         String input;
-        int loop;
+        boolean invalidInput;
         Scanner sc = new Scanner(System.in);
+
         do {
-            loop = 0;
+            invalidInput = false;
             System.out.print(promptMsg);
             input = sc.next();
-            if (Character.isLetter(input.charAt(0)) != true && input.length() != 1) {
 
+            if (!(Character.isLetter(input.charAt(0)) || input.length() == 1)) {
                 System.out.println(errorMsg);
-                loop = 1;
+                invalidInput = true;
             }
-        } while (loop == 1);
+        } while (invalidInput);
+
         return input.charAt(0);
     }
 
     //Yes or No input and validation function, character input 'Y' or 'N' is accepted
     public static char yesNoInput(String promptMsg, String errorMsg) {
         char input;
-        int loop;
+        boolean invalidInput;
+
         do {
             input = Character.toUpperCase(charInput(promptMsg, errorMsg));
-            loop = 0;
+            invalidInput = false;
             if (input != 'Y' && input != 'N') {
                 System.out.println("  Invalid input, please enter Y or N.");
-                loop = 1;
+                invalidInput = true;
             }
+        } while (invalidInput);
 
-        } while (loop == 1);
         return input;
     }
 
@@ -140,8 +153,8 @@ public class Validate {
         do {
             System.out.print(promptMsg);
             phoneNum = sc.next();
+        } while (!phoneNumValidation(phoneNum));
 
-        } while (phoneNumValidation(phoneNum) == false);
         return phoneNum;
     }
 
@@ -158,6 +171,7 @@ public class Validate {
                 }
             }
         }
+
         return true;
     }
 
@@ -165,14 +179,12 @@ public class Validate {
     public static String icInput(String promptMsg) {
         Scanner sc = new Scanner(System.in);
         String ic;
-        int loop = 0;
 
         do {
-            loop = 0;
             System.out.print(promptMsg);
             ic = sc.next();
+        } while (!icValidation(ic));
 
-        } while (icValidation(ic) == false || loop == 1);
         return ic;
     }
 
@@ -181,8 +193,38 @@ public class Validate {
         if (ic.length() != 12) {
             System.out.println("  Invalid length of ic");
             return false;
-        } else {
+        }
 
+        int birthYearPrefix = Integer.parseInt(ic.substring(0, 2));
+        String birthDateStr = ic.substring(4, 6) + "/" + ic.substring(2, 4);
+
+        if (birthYearPrefix <= 20) {
+            birthDateStr += "/20" + birthYearPrefix;
+        } else {
+            birthDateStr += "/19" + birthYearPrefix;
+        }
+
+        if (!dateChecking(birthDateStr)) {
+            System.out.println("  Invalid ic birthdate format");
+            return false;
+        }
+
+        for (int i = 0; i < ic.length(); i++) {
+            if (!Character.isDigit(ic.charAt(i))) {
+                System.out.println("  Invalid ic number format");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+/*
+    public static boolean icValidation(String ic) {
+        if (ic.length() != 12) {
+            System.out.println("  Invalid length of ic");
+            return false;
+        } else {
             if (Integer.parseInt(ic.substring(0, 2)) <= 20) {
                 if (dateChecking(ic.substring(4, 6) + "/" + ic.substring(2, 4) + "/20" + ic.substring(0, 2)) == false) {
                     System.out.println("  Invalid ic birthdate format");
@@ -202,24 +244,29 @@ public class Validate {
                 }
             }
         }
+
         return true;
     }
-
+*/
+    
     //Date input and validation function
     public static String dateInput(String promptMsg, String errorMsg) {
         Scanner sc = new Scanner(System.in);
         String input;
-        int loop;
+        boolean invalidInput;
+
         do {
-            loop = 0;
+            invalidInput = false;
             System.out.print(promptMsg);
             input = sc.next();
-            if (dateChecking(input) == false) {
+
+            if (!dateChecking(input)) {
                 System.out.println(errorMsg);
-                loop = 1;
+                invalidInput = true;
             }
 
-        } while (loop == 1);
+        } while (invalidInput);
+
         return input;
     }
 
@@ -227,31 +274,20 @@ public class Validate {
     public static String birthDateInput(String promptMsg, String errorMsg, String ic) {
         Scanner sc = new Scanner(System.in);
         String input;
-        int loop;
-        do {
-            loop = 0;
+        boolean invalidInput;
 
+        do {
+            invalidInput = false;
             input = dateInput(promptMsg, errorMsg);
 
-            if (ic.charAt(0) != input.charAt(8) || ic.charAt(1) != input.charAt(9)) {
-                System.out.println("  Birthdate didnt same as IC");
-                loop = 1;
-                continue;
+            if (ic.charAt(0) != input.charAt(8) || ic.charAt(1) != input.charAt(9)
+                    || ic.charAt(2) != input.charAt(3) || ic.charAt(3) != input.charAt(4)
+                    || ic.charAt(4) != input.charAt(0) || ic.charAt(5) != input.charAt(1)) {
+                System.out.println("  Birthdate didn't match with IC");
+                invalidInput = true;
             }
+        } while (invalidInput);
 
-            if (ic.charAt(2) != input.charAt(3) || ic.charAt(3) != input.charAt(4)) {
-                System.out.println("  Birthdate didnt same as IC");
-                loop = 1;
-                continue;
-            }
-
-            if (ic.charAt(4) != input.charAt(0) || ic.charAt(5) != input.charAt(1)) {
-                System.out.println("  Birthdate didnt same as IC");
-                loop = 1;
-                continue;
-            }
-
-        } while (loop == 1);
         return input;
     }
 
@@ -265,6 +301,7 @@ public class Validate {
             return false;
 
         }
+
         return true;
     }
 
@@ -294,9 +331,9 @@ public class Validate {
                 return dtf.format(now).substring(8, 10) + dtf.format(now).substring(3, 5) + dtf.format(now).substring(0, 2);
             default:
                 System.out.println("  Invalid mode selection");
-
                 break;
         }
+
         return "Invalid mode selection";
     }
 
@@ -326,7 +363,7 @@ public class Validate {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         return (int) difference_In_Years;
     }
-
 }
