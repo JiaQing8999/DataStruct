@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-//herennnnnnn
+
 public class Validate {
 
     //String input and validation function, digit input is not allowed 
@@ -346,6 +346,5 @@ public class Validate {
         Scanner sc = new Scanner(System.in);
         System.out.print("Press <Enter> to continue...");
         sc.nextLine();
-
     }
 }
