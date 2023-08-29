@@ -1,7 +1,5 @@
 package boundary;
 
-import static boundary.Parts.header;
-
 /**
  *
  * @author meikee

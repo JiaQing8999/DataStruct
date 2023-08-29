@@ -18,7 +18,7 @@ public class Parts {
 
         System.out.println("===" + headerSeparator + "===");
         System.out.println(" | " + headerName + " | ");
-        System.out.println("===" + headerSeparator + "===");
+        System.out.println("===" + headerSeparator + "===\n");
     }
 
     public static int menu(String[] menuOptions, String closeOperation) {
