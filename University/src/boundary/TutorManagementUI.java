@@ -16,7 +16,7 @@ public class TutorManagementUI {
     }
 
     public String inputName() {
-        String name = Validate.stringNullCheckingInput("Enter Name : ", "Name cannot be empty.");
+        String name = Validate.stringNullCheckingInput("Enter Name : ", "  Name cannot be empty.");
         return name;
     }
 
@@ -30,7 +30,12 @@ public class TutorManagementUI {
         return phoneNum;
     }
     
-    
+    public int selectFaculty() {
+        String[] menuOptions = {"FAFB", "FCCI", "FOAS", "FOCS", "FOET", "FSSH"};
+        
+        System.out.println("Select Faculty :");
+        return Parts.menu(menuOptions,null);
+    }
 
     //TEST HERE
     public static void main(String[] args) {
