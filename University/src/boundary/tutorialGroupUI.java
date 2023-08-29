@@ -1,5 +1,7 @@
 package boundary;
 
+import static boundary.Parts.header;
+
 /**
  *
  * @author meikee
@@ -16,6 +18,7 @@ public class tutorialGroupUI {
             "List all students in a tutorial group",
             "Filter tutorial groups",
             "Generate relevant reports"};
-        return Parts.menu("Tutorial Group", menuOptions, "Close");
+        Parts.header("Tutorial Group");
+        return Parts.menu(menuOptions, "Close");
     }
 }

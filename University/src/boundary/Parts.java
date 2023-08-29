@@ -21,14 +21,11 @@ public class Parts {
         System.out.println("===" + headerSeparator + "===");
     }
 
-    public static int menu(String headerName, String[] menuOptions, String closeOperation) {
+    public static int menu(String[] menuOptions, String closeOperation) {
         // Initialize variables
         int minSelection;
         String operationLabel;
         int selection;
-
-        // Display header
-        header(headerName);
 
         // Define minimum selection and operation label
         if (closeOperation == null) {
