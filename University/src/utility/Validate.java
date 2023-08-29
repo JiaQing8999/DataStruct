@@ -8,18 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-<<<<<<< HEAD:JavaApplication1/src/utility/Validate.java
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-//herennnnnnn000000
-=======
 
 /**
  *
  * @author Lim Jia Qing
  */
->>>>>>> main:University/src/utility/Validate.java
 public class Validate {
 
     //String input and validation function, digit input is not allowed 
