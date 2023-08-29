@@ -11,7 +11,8 @@ public class TutorManagementUI {
     //Main menu of tutor module
     public int getTutorMenuSelection() {
         String[] menuOptions = {"Add tutor", "Find tutor", "Amend tutor details", "Tutor list", "Remove tutor", "Generate reports"};
-        return Parts.menu("Tutor", menuOptions, "Close");
+        Parts.header("Tutor");
+        return Parts.menu(menuOptions, "Close");
     }
 
     public String inputName() {
@@ -28,6 +29,8 @@ public class TutorManagementUI {
         String phoneNum = Validate.phoneInput("Enter Contact number (without \"-\") : ");
         return phoneNum;
     }
+    
+    
 
     //TEST HERE
     public static void main(String[] args) {
