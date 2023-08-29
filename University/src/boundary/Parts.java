@@ -9,15 +9,16 @@ import utility.*;
 public class Parts {
 
     public static void header(String headerName) {
-        String headerLength = "";
+        String headerSeparator = "";
 
-        Seperate.clearScreen();
+        Seperate.clearScreen();     // Clear screen
         for (int i = 0; i < headerName.length(); i++) {
-            headerLength += "=";
+            headerSeparator += "=";
         }
-        System.out.println("===" + headerLength + "===");
+
+        System.out.println("===" + headerSeparator + "===");
         System.out.println(" | " + headerName + " | ");
-        System.out.println("===" + headerLength + "===" + "\n");
+        System.out.println("===" + headerSeparator + "===");
     }
 
     public static int menu(String headerName, String[] menuOptions, String closeOperation) {
@@ -31,11 +32,11 @@ public class Parts {
 
         // Define minimum selection and operation label
         if (closeOperation == null) {
-            minSelection = 1; // Minimum selection when closeOperation is null
-            operationLabel = ""; // No close operation
+            minSelection = 1;       // Minimum selection when closeOperation is null
+            operationLabel = "";    // No close operation
         } else {
-            minSelection = 0; // Minimum selection when closeOperation is provided
-            operationLabel = "\n" + "0 - " + closeOperation + "\n"; // Close operation label with a newline
+            minSelection = 0;       // Minimum selection when closeOperation is provided
+            operationLabel = "\n" + "0 - " + closeOperation + "\n";     // Close operation label with a newline
         }
 
         // Print menu options
@@ -43,7 +44,7 @@ public class Parts {
             System.out.println((i + 1) + " - " + menuOptions[i]);
         }
 
-        // Print operationLabel
+        // Print operationLabel with/without selection 0
         System.out.println(operationLabel);
 
         // Prompt for and validate selection
@@ -56,7 +57,6 @@ public class Parts {
             }
         } while (selection < minSelection || selection > menuOptions.length);
 
-        // Return the valid selection
         return selection;
     }
 }
