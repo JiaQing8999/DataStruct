@@ -11,7 +11,7 @@ public class TutorManagementUI {
     //Main menu of tutor module
     public int getTutorMenuSelection() {
         String[] menuOptions = {"Add tutor", "Find tutor", "Amend tutor details", "Tutor list", "Remove tutor", "Generate reports"};
-        return Parts.menu("Tutor", menuOptions);
+        return Parts.menu("Tutor", menuOptions, "Close");
     }
 
     public String inputName() {
