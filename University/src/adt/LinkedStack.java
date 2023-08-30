@@ -1,5 +1,9 @@
 package adt;
 
+/**
+ *
+ * @author 
+ */
 public class LinkedStack<T> implements StackInterface<T> {
 
     private Node topNode;
