@@ -3,7 +3,6 @@
  */
 
 package entity;
-
 import java.util.Objects;
 
 public class Course {
@@ -13,7 +12,7 @@ public class Course {
     private String courseDescription;
     private int courseCreditHours;
     private int courseYearCommenced;
-    //private Programme[] programmeID;
+    private String[] programmeID;
 
     public Course() {
     }
@@ -22,7 +21,14 @@ public class Course {
         this.courseID = courseID;
     }
 
-    //Full constructor here 
+    public Course(String courseID, String courseName, String courseDescription, int courseCreditHours, int courseYearCommenced, String[] programmeID) {
+        this.courseID = courseID;
+        this.courseName = courseName;
+        this.courseDescription = courseDescription;
+        this.courseCreditHours = courseCreditHours;
+        this.courseYearCommenced = courseYearCommenced;
+        this.programmeID = programmeID;
+    }
     
     public String getCourseID() {
         return courseID;
@@ -63,9 +69,15 @@ public class Course {
     public void setCourseYearCommenced(int courseYearCommenced) {
         this.courseYearCommenced = courseYearCommenced;
     }
-    
-    //get and set for programme data field
 
+    public String[] getProgrammeID() {
+        return programmeID;
+    }
+
+    public void setProgrammeID(String[] programmeID) {
+        this.programmeID = programmeID;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
