@@ -1,0 +1,1 @@
+package adt;import java.util.Iterator;/** * * @author Lim Jia Qing */public interface QueueInterface<T> {    public Iterator<T> getIterator();    public void enqueue(T newEntry);    public T dequeue();    public T getFront();    public boolean isEmpty();    public void clear();}
