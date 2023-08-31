@@ -15,8 +15,13 @@ public class CourseUI {
     //Main menu of course module
     public int getCourseMenuSelection() {
         String[] menuOptions = {
-            "Add course", "Remove course", "Find course", "Amend course details",
-            "Add programme to course", "Remove programme from course", "Generate reports"};
+            "Add course",
+            "Remove course",
+            "Find course",
+            "Amend course details",
+            "Add programme to course",
+            "Remove programme from course",
+            "Generate reports"};
         Parts.header("Course");
         return Parts.menu(menuOptions, "Close");
     }
@@ -42,13 +47,25 @@ public class CourseUI {
         return courseCreditHours;
     }
 
+    public int inputCourseYearCommenced() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.YEAR);
+    }
+
     public Course inputProductDetails() {
         String courseID = inputCourseID();
         String courseName = inputCourseName();
         String courseDescription = inputCourseDescription();
         int courseCreditHours = inputCourseCreditHours(courseID);
-        Calendar calendar = Calendar.getInstance();
-        int courseYearCommenced = calendar.get(Calendar.YEAR);
+        int courseYearCommenced = inputCourseYearCommenced();
         return new Course(courseID, courseName, courseDescription, courseCreditHours, courseYearCommenced, null);
+    }
+
+    public void printCourseDetails(Course course) {
+        System.out.println("Course ID  Course name                       Course description               Credit Hours   Year Commenced");
+        System.out.println("***********************************************************************************************************");
+        System.out.printf("%9s  %-30s    %-40s %4d   %14d", course.getCourseID(), course.getCourseName(),
+                course.getCourseDescription(), course.getCourseCreditHours(), course.getCourseYearCommenced());
+        System.out.println("");
     }
 }
