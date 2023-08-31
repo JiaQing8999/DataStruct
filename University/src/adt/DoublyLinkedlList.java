@@ -28,8 +28,8 @@ public class DoublyLinkedlList<T> implements ListInterface<T> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override   //clear the doubly linked list
-    public void clear() {
+    @Override
+    public void clear() {   //clear the doubly linked list
         head = null;
         tail = null;
         numberOfEntries = 0;
@@ -57,7 +57,7 @@ public class DoublyLinkedlList<T> implements ListInterface<T> {
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return numberOfEntries == 0;    //true if numberOfEntries=0(empty);false=nonempty
     }
 
     @Override
