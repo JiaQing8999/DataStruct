@@ -1,10 +1,17 @@
 /*
  * @author sowyichin
  */
-
 package adt;
 
-public class DoublyLinkedlList<T> implements ListInterface<T>{
+public class DoublyLinkedlList<T> implements ListInterface<T> {
+
+    private Node head;  //reference to first node in the list
+    private Node tail;  //reference to last node in the list
+    private int numberOfEntries;    //number of nodes in the list
+    private int index;
+
+    public DoublyLinkedlList() {
+    }
 
     @Override
     public boolean add(T newEntry) {
@@ -21,9 +28,11 @@ public class DoublyLinkedlList<T> implements ListInterface<T>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    @Override   //clear the doubly linked list
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        head = null;
+        tail = null;
+        numberOfEntries = 0;
     }
 
     @Override
@@ -53,11 +62,23 @@ public class DoublyLinkedlList<T> implements ListInterface<T>{
 
     @Override
     public boolean isFull() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return false;   //doubly linked list is impossible become full, so reurn false
     }
-    
-    private class Node{
-        
+
+    private class Node {
+
+        private Node prev;  //reference to the previous node
+        private T data;
+        private Node next;  //reference to the next node
+
+        public Node(T data) {
+            this.data = data;
+        }
+
+        public Node(Node prev, T data, Node next) {
+            this.prev = prev;
+            this.data = data;
+            this.next = next;
+        }
     }
-    
 }
