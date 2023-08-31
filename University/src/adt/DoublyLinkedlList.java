@@ -15,7 +15,21 @@ public class DoublyLinkedlList<T> implements ListInterface<T> {
 
     @Override
     public boolean add(T newEntry) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        Node newNode = new Node(newEntry);
+
+        if (isEmpty()) {        
+            head = tail = newNode;  //set head & tail point to new node
+            head.prev = null;
+            tail.next = null;
+        } else {    //add the new node to the end of list
+            newNode.prev = tail;    //set new node prev point to tail
+            tail.next = newNode;    //set tail next point to new node
+            tail = newNode;     //update the tail to new node
+            tail.next = null; 
+        }
+        numberOfEntries++;
+        return true;
     }
 
     @Override
