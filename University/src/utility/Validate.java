@@ -145,6 +145,23 @@ public class Validate {
         return input;
     }
 
+    //Yes or No input and validation function, character input 'Y' or 'N' is accepted
+    public static char genderInput(String promptMsg, String errorMsg) {
+        char input;
+        boolean invalidInput;
+
+        do {
+            input = Character.toUpperCase(charInput(promptMsg, errorMsg));
+            invalidInput = false;
+            if (input != 'M' && input != 'F') {
+                System.out.println("  Invalid input, please enter M or F.");
+                invalidInput = true;
+            }
+        } while (invalidInput);
+
+        return input;
+    }
+
     //Phone number input and validation function
     public static String phoneInput(String promptMsg) {
         Scanner sc = new Scanner(System.in);
@@ -219,7 +236,7 @@ public class Validate {
         return true;
     }
 
-/*
+    /*
     public static boolean icValidation(String ic) {
         if (ic.length() != 12) {
             System.out.println("  Invalid length of ic");
@@ -247,8 +264,7 @@ public class Validate {
 
         return true;
     }
-*/
-    
+     */
     //Date input and validation function
     public static String dateInput(String promptMsg, String errorMsg) {
         Scanner sc = new Scanner(System.in);

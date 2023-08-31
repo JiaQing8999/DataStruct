@@ -16,6 +16,7 @@ public class tutorialGroupUI {
             "List all students in a tutorial group",
             "Filter tutorial groups",
             "Generate relevant reports"};
-        return Parts.menu("Tutorial Group", menuOptions);
+        Parts.header("Tutorial Group");
+        return Parts.menu(menuOptions, "Close");
     }
 }

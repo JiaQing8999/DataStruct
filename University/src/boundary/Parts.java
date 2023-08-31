@@ -9,36 +9,51 @@ import utility.*;
 public class Parts {
 
     public static void header(String headerName) {
-        String headerLength = "";
+        String headerSeparator = "";
 
-        Seperate.clearScreen();
+        Seperate.clearScreen();     // Clear screen
         for (int i = 0; i < headerName.length(); i++) {
-            headerLength += "=";
+            headerSeparator += "=";
         }
-        System.out.println("===" + headerLength + "===");
+
+        System.out.println("===" + headerSeparator + "===");
         System.out.println(" | " + headerName + " | ");
-        System.out.println("===" + headerLength + "===" + "\n");
+        System.out.println("===" + headerSeparator + "===\n");
     }
 
-    public static int menu(String headerName, String[] selectionArray) {
-        int selection = 0;
+    public static int menu(String[] menuOptions, String closeOperation) {
+        // Initialize variables
+        int minSelection;
+        String operationLabel;
+        int selection;
 
-        header(headerName);
-
-        for (int i = 0; i < selectionArray.length; i++) {
-            System.out.println(i + 1 + " - " + selectionArray[i]);
+        // Define minimum selection and operation label
+        if (closeOperation == null) {
+            minSelection = 1;       // Minimum selection when closeOperation is null
+            operationLabel = "";    // No close operation
+        } else {
+            minSelection = 0;       // Minimum selection when closeOperation is provided
+            operationLabel = "\n" + "0 - " + closeOperation + "\n";     // Close operation label with a newline
         }
 
-        System.out.println("\n0 - Close\n");
+        // Print menu options
+        for (int i = 0; i < menuOptions.length; i++) {
+            System.out.println((i + 1) + " - " + menuOptions[i]);
+        }
 
+        // Print operationLabel with/without selection 0
+        System.out.println(operationLabel);
+
+        // Prompt for and validate selection
         do {
-            selection = Validate.intInput("Selection > ", "  Integer input only.");     //Only integer accepted.
-            if (selection > selectionArray.length || selection < 0) {
-                System.out.println("  Select only 0 - " + selectionArray.length + ".");
+            selection = Validate.intInput("Selection > ", "  Please enter an integer.");
+
+            // Check if selection is outside the valid range
+            if (selection < minSelection || selection > menuOptions.length) {
+                System.out.println("  Select only " + minSelection + " - " + menuOptions.length + ".");
             }
-        } while (selection > selectionArray.length || selection < 0);       //Only 0-(array length) accepted.
+        } while (selection < minSelection || selection > menuOptions.length);
 
         return selection;
     }
-
 }

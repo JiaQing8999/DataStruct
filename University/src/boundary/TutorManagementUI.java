@@ -11,12 +11,18 @@ public class TutorManagementUI {
     //Main menu of tutor module
     public int getTutorMenuSelection() {
         String[] menuOptions = {"Add tutor", "Find tutor", "Amend tutor details", "Tutor list", "Remove tutor", "Generate reports"};
-        return Parts.menu("Tutor", menuOptions);
+        Parts.header("Tutor");
+        return Parts.menu(menuOptions, null);
     }
 
     public String inputName() {
-        String name = Validate.stringNullCheckingInput("Enter Name : ", "Name cannot be empty.");
+        String name = Validate.stringNullCheckingInput("Enter Name : ", "  Name cannot be empty.");
         return name;
+    }
+    
+    public char inputGender(){
+        char gender = Validate.genderInput("Enter gender, (M)ale/(F)emale : ", "Character input only.");
+        return gender;
     }
 
     public String inputIC() {
@@ -29,9 +35,9 @@ public class TutorManagementUI {
         return phoneNum;
     }
 
-    //TEST HERE
-    public static void main(String[] args) {
-        TutorManagementUI t = new TutorManagementUI();
-        t.getTutorMenuSelection();
+    public String selectFaculty() {
+        String[] menuOptions = {"FAFB", "FCCI", "FOAS", "FOCS", "FOET", "FSSH"};
+        System.out.println("Select Faculty :");
+        return menuOptions[Parts.menu(menuOptions, null) - 1];
     }
 }
