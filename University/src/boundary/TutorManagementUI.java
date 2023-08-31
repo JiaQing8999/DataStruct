@@ -19,6 +19,11 @@ public class TutorManagementUI {
         String name = Validate.stringNullCheckingInput("Enter Name : ", "  Name cannot be empty.");
         return name;
     }
+    
+    public char inputGender(){
+        char gender = Validate.genderInput("Enter gender, (M)ale/(F)emale : ", "Character input only.");
+        return gender;
+    }
 
     public String inputIC() {
         String ic = Validate.icInput("Enter IC number : ");
@@ -30,10 +35,9 @@ public class TutorManagementUI {
         return phoneNum;
     }
 
-    public int selectFaculty() {
+    public String selectFaculty() {
         String[] menuOptions = {"FAFB", "FCCI", "FOAS", "FOCS", "FOET", "FSSH"};
-
         System.out.println("Select Faculty :");
-        return Parts.menu(menuOptions, null);
+        return menuOptions[Parts.menu(menuOptions, null) - 1];
     }
 }

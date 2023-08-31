@@ -52,9 +52,13 @@ public class ManageTutor {
 
     public void addNewTutor() {
         Parts.header("Add a tutor");
+        
         Tutor newTutor = new Tutor();
         newTutor.setName(tutorUI.inputName());
+        newTutor.setGender(tutorUI.inputGender());
         newTutor.setIc(tutorUI.inputIC());
-        newTutor.set
+        newTutor.setContactNum(tutorUI.inputContactNum());
+        newTutor.setFaculty(tutorUI.selectFaculty());
+        
     }
 }

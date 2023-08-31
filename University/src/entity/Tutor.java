@@ -8,7 +8,7 @@ public class Tutor implements Comparable<Tutor> {
 
     private String tutorID;
     private String name;
-    
+    private char gender;
     private String ic;
     private String contactNum;
     private String faculty;
@@ -18,9 +18,10 @@ public class Tutor implements Comparable<Tutor> {
         // Default constructor
     }
 
-    public Tutor(String tutorID, String name, String ic, String contactNum, String faculty) {
+    public Tutor(String tutorID, String name, char gender, String ic, String contactNum, String faculty) {
         this.tutorID = tutorID;
         this.name = name;
+        this.gender = gender;
         this.ic = ic;
         this.contactNum = contactNum;
         this.faculty = faculty;
@@ -41,6 +42,14 @@ public class Tutor implements Comparable<Tutor> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
     }
 
     public String getIc() {
@@ -69,13 +78,7 @@ public class Tutor implements Comparable<Tutor> {
 
     @Override
     public String toString() {
-        return "Tutor{"
-                + "tutorID='" + tutorID + '\''
-                + ", name='" + name + '\''
-                + ", ic='" + ic + '\''
-                + ", contactNum='" + contactNum + '\''
-                + ", faculty='" + faculty + '\''
-                + '}';
+        return "Tutor{" + "tutorID=" + tutorID + ", name=" + name + ", gender=" + gender + ", ic=" + ic + ", contactNum=" + contactNum + ", faculty=" + faculty + '}';
     }
 
     @Override
