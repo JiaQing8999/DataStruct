@@ -5,7 +5,10 @@
 package adt;
 
 public class DoublyLinkedlList<T> implements ListInterface<T>{
-
+    
+    private Node firstNode;             // reference to first node
+    private int numberOfEntries;  	// number of entries in list
+    
     @Override
     public boolean add(T newEntry) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -59,5 +62,4 @@ public class DoublyLinkedlList<T> implements ListInterface<T>{
     private class Node{
         
     }
-    
 }
