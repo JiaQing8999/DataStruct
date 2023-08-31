@@ -15,10 +15,10 @@ public class DoublyLinkedlList<T> implements ListInterface<T> {
 
     @Override
     public boolean add(T newEntry) {
-        
+
         Node newNode = new Node(newEntry);
 
-        if (isEmpty()) {        
+        if (isEmpty()) {
             head = tail = newNode;  //set head & tail point to new node
             head.prev = null;
             tail.next = null;
@@ -26,7 +26,7 @@ public class DoublyLinkedlList<T> implements ListInterface<T> {
             newNode.prev = tail;    //set new node prev point to tail
             tail.next = newNode;    //set tail next point to new node
             tail = newNode;     //update the tail to new node
-            tail.next = null; 
+            tail.next = null;
         }
         numberOfEntries++;
         return true;
@@ -61,17 +61,27 @@ public class DoublyLinkedlList<T> implements ListInterface<T> {
 
     @Override
     public boolean contains(T anEntry) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        Node currentNode = head;
+
+        //Traverse the list
+        while (currentNode != null) {
+            if (anEntry.equals(currentNode.data))  {
+                return true;
+            }
+            currentNode = currentNode.next;     //move to next node
+        }
+        return false;
     }
 
     @Override
     public int getNumberOfEntries() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return numberOfEntries;
     }
 
     @Override
     public boolean isEmpty() {
-        return numberOfEntries == 0;    //true if numberOfEntries=0(empty);false=nonempty
+        return numberOfEntries == 0;    //true if numberOfEntries=0(empty); false=nonempty
     }
 
     @Override
