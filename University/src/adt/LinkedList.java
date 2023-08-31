@@ -27,7 +27,7 @@ public class LinkedList<T> implements ListInterface<T> {
             firstNode = newNode;
         } else {                        // add to end of nonempty list
             Node currentNode = firstNode;	// traverse linked list with p pointing to the current node
-            while (currentNode.next != null) { // while have not reached the last node
+            while (currentNode.next != null) {  // while have not reached the last node
                 currentNode = currentNode.next;
             }
             currentNode.next = newNode; // make last node reference new node
@@ -53,7 +53,7 @@ public class LinkedList<T> implements ListInterface<T> {
                     nodeBefore = nodeBefore.next;		// advance nodeBefore to its next node
                 }
 
-                newNode.next = nodeBefore.next;	// make new node point to current node at newPosition
+                newNode.next = nodeBefore.next;         // make new node point to current node at newPosition
                 nodeBefore.next = newNode;		// make the node before point to the new node
             }
 
