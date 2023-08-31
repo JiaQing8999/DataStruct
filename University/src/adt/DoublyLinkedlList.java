@@ -3,6 +3,7 @@
  */
 package adt;
 
+
 public class DoublyLinkedlList<T> implements ListInterface<T> {
 
     private Node head;  //reference to first node in the list

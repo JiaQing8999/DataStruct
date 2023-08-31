@@ -29,17 +29,11 @@ public class TutorManagementUI {
         String phoneNum = Validate.phoneInput("Enter Contact number (without \"-\") : ");
         return phoneNum;
     }
-    
+
     public int selectFaculty() {
         String[] menuOptions = {"FAFB", "FCCI", "FOAS", "FOCS", "FOET", "FSSH"};
-        
-        System.out.println("Select Faculty :");
-        return Parts.menu(menuOptions,null);
-    }
 
-    //TEST HERE
-    public static void main(String[] args) {
-        TutorManagementUI t = new TutorManagementUI();
-        t.getTutorMenuSelection();
+        System.out.println("Select Faculty :");
+        return Parts.menu(menuOptions, null);
     }
 }

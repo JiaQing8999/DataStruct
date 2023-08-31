@@ -8,6 +8,7 @@ public class Tutor implements Comparable<Tutor> {
 
     private String tutorID;
     private String name;
+    
     private String ic;
     private String contactNum;
     private String faculty;

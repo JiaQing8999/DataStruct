@@ -6,7 +6,7 @@ package adt;
  */
 public class LinkedList<T> implements ListInterface<T> {
 
-    private Node firstNode; // reference to first node
+    private Node firstNode;             // reference to first node
     private int numberOfEntries;  	// number of entries in list
 
     public LinkedList() {
