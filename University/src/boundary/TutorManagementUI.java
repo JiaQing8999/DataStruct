@@ -12,7 +12,7 @@ public class TutorManagementUI {
     public int getTutorMenuSelection() {
         String[] menuOptions = {"Add tutor", "Find tutor", "Amend tutor details", "Tutor list", "Remove tutor", "Generate reports"};
         Parts.header("Tutor");
-        return Parts.menu(menuOptions, "Close");
+        return Parts.menu(menuOptions, null);
     }
 
     public String inputName() {

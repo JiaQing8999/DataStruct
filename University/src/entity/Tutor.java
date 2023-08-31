@@ -4,7 +4,8 @@ package entity;
  *
  * @author Lim Jia Qing
  */
-public class Tutor {
+public class Tutor implements Comparable<Tutor> {
+
     private String tutorID;
     private String name;
     private String ic;
@@ -67,12 +68,18 @@ public class Tutor {
 
     @Override
     public String toString() {
-        return "Tutor{" +
-                "tutorID='" + tutorID + '\'' +
-                ", name='" + name + '\'' +
-                ", ic='" + ic + '\'' +
-                ", contactNum='" + contactNum + '\'' +
-                ", faculty='" + faculty + '\'' +
-                '}';
+        return "Tutor{"
+                + "tutorID='" + tutorID + '\''
+                + ", name='" + name + '\''
+                + ", ic='" + ic + '\''
+                + ", contactNum='" + contactNum + '\''
+                + ", faculty='" + faculty + '\''
+                + '}';
+    }
+
+    @Override
+    public int compareTo(Tutor o) {
+        // Compare the tutorIDs of the current Tutor and the other Tutor
+        return this.tutorID.compareTo(o.tutorID);
     }
 }
