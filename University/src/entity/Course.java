@@ -98,10 +98,9 @@ public class Course {
         final Course other = (Course) obj;
         return Objects.equals(this.courseID, other.courseID);
     }
-     
-    //format need to write
+
     @Override
     public String toString() {
-        return String.format("%-8s",courseID);
+        return "Course{" + "courseID=" + courseID + ", courseName=" + courseName + ", courseDescription=" + courseDescription + ", courseCreditHours=" + courseCreditHours + ", courseYearCommenced=" + courseYearCommenced + ", programmeID=" + programmeID + '}';
     }
 }
