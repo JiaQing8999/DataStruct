@@ -1,10 +1,14 @@
 package adt;
 
+import java.util.Iterator;
+
 /**
  *
  * @author Lim Jia Qing
  */
 public interface ListInterface<T> {
+    
+    public Iterator<T> getIterator();
 
     public boolean add(T newEntry);
 

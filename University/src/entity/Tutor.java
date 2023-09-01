@@ -78,12 +78,30 @@ public class Tutor implements Comparable<Tutor> {
 
     @Override
     public String toString() {
-        return "Tutor{" + "tutorID=" + tutorID + ", name=" + name + ", gender=" + gender + ", ic=" + ic + ", contactNum=" + contactNum + ", faculty=" + faculty + '}';
+        String genderFull = null;
+        switch (gender) {
+            case 'M':
+                genderFull = "Male";
+                break;
+            case 'F':
+                genderFull = "Female";
+                break;
+        }
+        return "\nTutor ID : " + tutorID
+                + "\nName : " + name
+                + "\nGender : " + genderFull
+                + "\nIC Number : " + ic
+                + "\nContact Number : " + contactNum
+                + "\nFaculty : " + faculty;
     }
 
     @Override
     public int compareTo(Tutor o) {
         // Compare the tutorIDs of the current Tutor and the other Tutor
         return this.tutorID.compareTo(o.tutorID);
+    }
+
+    public String formatTutorData() {
+        return tutorID + "|" + name + "|" + gender + "|" + ic + "|" + contactNum + "|" + faculty;
     }
 }
