@@ -14,6 +14,11 @@ public class ManageTutor {
 
     private TutorManagementUI tutorUI = new TutorManagementUI();
     private SortedListInterface<Tutor> tutorSortedList = new SortedLinkedList<>();
+    private final String fileName = "tutor.txt";
+
+    public ManageTutor() {
+        tutorSortedList = TutorDAO.readTutorsFromFile(fileName);
+    }
 
     public static void main(String[] args) {
         ManageTutor manageTutor = new ManageTutor();
@@ -60,33 +65,39 @@ public class ManageTutor {
         Parts.header("Add a tutor");
 
         Tutor newTutor = new Tutor();
+        // Generate Tutor ID
+        newTutor.setTutorID(newTutor.generateNewTutorID(tutorSortedList));
+        
         newTutor.setName(tutorUI.inputName());
         newTutor.setGender(tutorUI.inputGender());
         newTutor.setIc(tutorUI.inputIC());
         newTutor.setContactNum(tutorUI.inputContactNum());
         newTutor.setFaculty(tutorUI.selectFaculty());
-        char another;
+        char next;
         do {
             Seperate.clearScreen();
             Parts.header("Add a tutor");
             System.out.println("  New tutor details");
             System.out.println("  -----------------");
-            System.out.println(newTutor);
+            System.out.println(newTutor + "\n");
 
             char confirm = Validate.yesNoInput("Comfirm to add " + newTutor.getTutorID() + "? (Y)es/(N)o > ", "  Character input only.");
 
             if (confirm == 'Y') {
+                // Add new entry to Sorted List
                 if (tutorSortedList.add(newTutor)) {
                     System.out.println("New tutor added.");
                 }
             } else {
                 System.out.println("No new tutor added.");
             }
-            //Ask for another entries
-            another = Validate.yesNoInput("Add another tutor? (Y)es/(N)o > ", "  Character input only.");
-        } while (another == 'Y');
-        
+            //Ask whether have another entry
+            next = Validate.yesNoInput("Add another tutor? (Y)es/(N)o > ", "  Character input only.");
+        } while (next == 'Y');
+
         //write entire sorted list into file
-        TutorDAO.writeTutorsToFile("tutor.txt", tutorSortedList);
+        TutorDAO.writeTutorsToFile(fileName, tutorSortedList);
+        System.out.println("\n\nSaving data...");
+        Seperate.systemPause();
     }
 }
