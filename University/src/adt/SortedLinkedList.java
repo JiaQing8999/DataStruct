@@ -1,5 +1,7 @@
 package adt;
 
+import java.util.Iterator;
+
 public class SortedLinkedList<T extends Comparable<T>> implements SortedListInterface<T> {
 
     private Node firstNode;
@@ -10,6 +12,7 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
         numberOfEntries = 0;
     }
 
+    @Override
     public boolean add(T newEntry) {
         Node newNode = new Node(newEntry);
 
@@ -31,10 +34,12 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
         return true;
     }
 
-    public boolean remove(T anEntry) {
+    @Override
+    public T remove(T anEntry) {
         throw new UnsupportedOperationException();	// Left as Practical exercise
     }
 
+    @Override
     public boolean contains(T anEntry) {
         boolean found = false;
         Node tempNode = firstNode;
@@ -53,27 +58,76 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
         }
     }
 
+    @Override
+    public T getEntry(int givenPosition) {
+        T result = null;
+
+        if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
+            Node currentNode = firstNode;
+            for (int i = 0; i < givenPosition - 1; ++i) {
+                currentNode = currentNode.next;		// advance currentNode to next node
+            }
+            result = currentNode.data;	// currentNode is pointing to the node at givenPosition
+        }
+
+        return result;
+    }
+
+    @Override
     public final void clear() {
         firstNode = null;
         numberOfEntries = 0;
     }
 
+    @Override
     public int getNumberOfEntries() {
         return numberOfEntries;
     }
 
+    @Override
     public boolean isEmpty() {
         return (numberOfEntries == 0);
     }
 
+    @Override
     public String toString() {
         String outputStr = "";
         Node currentNode = firstNode;
         while (currentNode != null) {
-            outputStr += currentNode.data + "\n";;
+            outputStr += currentNode.data + "\n";
             currentNode = currentNode.next;
         }
         return outputStr;
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        return new SortedListIterator();
+    }
+
+    private class SortedListIterator implements Iterator<T> {
+
+        private SortedLinkedList<T>.Node currentNode;
+
+        public SortedListIterator() {
+            currentNode = firstNode;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext()) {
+                T returnData = currentNode.data;
+                currentNode = currentNode.next;
+                return returnData;
+            } else {
+                return null;
+            }
+        }
     }
 
     private class Node {

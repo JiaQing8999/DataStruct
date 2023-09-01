@@ -1,6 +1,8 @@
 package control;
 
+import adt.*;
 import boundary.*;
+import dao.*;
 import entity.Tutor;
 import utility.*;
 
@@ -11,6 +13,7 @@ import utility.*;
 public class ManageTutor {
 
     private TutorManagementUI tutorUI = new TutorManagementUI();
+    private SortedListInterface<Tutor> tutorSortedList = new SortedLinkedList<>();
 
     public static void main(String[] args) {
         ManageTutor manageTutor = new ManageTutor();
@@ -26,6 +29,7 @@ public class ManageTutor {
             switch (selection) {
                 case 1:
                     //Add tutor
+                    addNewTutor();
                     break;
                 case 2:
                     //Find tutor
@@ -52,7 +56,7 @@ public class ManageTutor {
     }
 
     public void addNewTutor() {
-        
+
         Parts.header("Add a tutor");
 
         Tutor newTutor = new Tutor();
@@ -61,16 +65,28 @@ public class ManageTutor {
         newTutor.setIc(tutorUI.inputIC());
         newTutor.setContactNum(tutorUI.inputContactNum());
         newTutor.setFaculty(tutorUI.selectFaculty());
+        char another;
+        do {
+            Seperate.clearScreen();
+            Parts.header("Add a tutor");
+            System.out.println("  New tutor details");
+            System.out.println("  -----------------");
+            System.out.println(newTutor);
 
-        Seperate.clearScreen();
-        Parts.header("Add a tutor");
-        System.out.println("  New tutor details");
-        System.out.println("  -----------------");
-        System.out.println(newTutor);
+            char confirm = Validate.yesNoInput("Comfirm to add " + newTutor.getTutorID() + "? (Y)es/(N)o > ", "  Character input only.");
 
-        char confirm = Validate.yesNoInput("Comfirm to add " + newTutor.getTutorID() + "?", "  Character input only.");
-        if(confirm == 'Y'){
-            
-        }
+            if (confirm == 'Y') {
+                if (tutorSortedList.add(newTutor)) {
+                    System.out.println("New tutor added.");
+                }
+            } else {
+                System.out.println("No new tutor added.");
+            }
+            //Ask for another entries
+            another = Validate.yesNoInput("Add another tutor? (Y)es/(N)o > ", "  Character input only.");
+        } while (another == 'Y');
+        
+        //write entire sorted list into file
+        TutorDAO.writeTutorsToFile("tutor.txt", tutorSortedList);
     }
 }
