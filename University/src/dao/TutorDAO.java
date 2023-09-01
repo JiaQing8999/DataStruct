@@ -1,6 +1,6 @@
 package dao;
 
-import adt.LinkedList;
+import adt.*;
 import entity.Tutor;
 import java.io.*;
 import java.util.Iterator;
@@ -11,8 +11,8 @@ import java.util.Iterator;
  */
 public class TutorDAO {
 
-    public static LinkedList<Tutor> readTutorsFromFile(String fileName) {
-        LinkedList<Tutor> tutorList = new LinkedList<>();
+    public static SortedListInterface<Tutor> readTutorsFromFile(String fileName) {
+        SortedListInterface<Tutor> tutorList = new SortedLinkedList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -45,7 +45,21 @@ public class TutorDAO {
         return tutorList;
     }
 
-    public static void writeTutorsToFile(String fileName, LinkedList<Tutor> tutorList) {
+    public static void writeTutorsToFile(String fileName, SortedListInterface<Tutor> tutorList) {
+
+        File file = new File(fileName);
+        try {
+            // Check if the file already exists
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
 
