@@ -39,7 +39,7 @@ public class ManageTutor {
                     break;
                 case 2:
                     //Find tutor
-                    findTutor();
+                    findTutor(false);
                     break;
                 case 3:
                     //Amend tutor details
@@ -49,6 +49,7 @@ public class ManageTutor {
                     break;
                 case 5:
                     //Remove tutor
+                    findTutor(true);
                     break;
                 case 6:
                     //Generate reports
@@ -103,21 +104,26 @@ public class ManageTutor {
         Seperate.systemPause();
     }
 
-    public void findTutor() {
+    public void findTutor(boolean hasDelete) {
         int searchOption;
+        boolean deletePerformed = false;
 
         do {
-            Parts.header("Find Tutor");
+            if (hasDelete) {
+                Parts.header("Remove a Tutor");
+            } else {
+                Parts.header("Find a Tutor");
+            }
 
             String[] searchOptions = {"Search by Tutor ID", "Search by Name"};
-            searchOption = Parts.menu(searchOptions, "Back to Main Menu");
+            searchOption = Parts.menu(searchOptions, "Back to Menu");
 
             if (searchOption == 0) {
                 break; // User selected to go back to the main menu
             }
-            
+
             Parts.header("Find Tutor");
-            
+
             String searchCriteria = Validate.stringInput("Enter the search criteria: ", "Invalid input. Please enter a valid search criteria.");
 
             SortedListInterface<Tutor> searchResults = new SortedLinkedList<>();
@@ -137,19 +143,43 @@ public class ManageTutor {
             } else {
                 System.out.println("Tutors found: " + searchResults.getNumberOfEntries());
 
-                // Use an iterator to print out tutor details
-                Iterator<Tutor> iterator = searchResults.getIterator();
-                int resultIndex = 1;
-                while (iterator.hasNext()) {
-                    System.out.println("\nResult " + resultIndex + ":");
-                    Tutor tutor = iterator.next();
-                    System.out.println(tutor);
-                    resultIndex++;
+                if (hasDelete) {
+                    String[] deleteOptions = new String[searchResults.getNumberOfEntries()];
+                    for (int i = 1; i <= searchResults.getNumberOfEntries(); i++) {
+                        Tutor tutor = searchResults.getEntry(i);
+                        deleteOptions[i - 1] = tutor.getTutorID() + ", " + tutor.getName();
+                    }
+                    int deleteSelection = Parts.menu(deleteOptions, "Cancel Deletion");
+                    if (deleteSelection == 0) {
+                        System.out.println("Deletion canceled.");
+                    } else {
+                        deletePerformed = true;
+                        // Delete the selected tutor
+                        tutorSortedList.remove(searchResults.getEntry(deleteSelection));
+                        System.out.println("Tutor removed.");
+                    }
+                } else {
+                    // Use an iterator to print out tutor details
+                    Iterator<Tutor> iterator = searchResults.getIterator();
+                    int resultIndex = 1;
+                    while (iterator.hasNext()) {
+                        System.out.println("\nResult " + resultIndex + ":");
+                        Tutor tutor = iterator.next();
+                        System.out.println(tutor);
+                        resultIndex++;
+                        System.out.println(); // Add a newline for readability
+                    }
                 }
             }
 
-            System.out.println(); // Add a newline for readability
             Seperate.systemPause();
         } while (searchOption != 0);
+
+        if (deletePerformed) {
+            //write entire sorted list into file
+            TutorDAO.writeTutorsToFile(fileName, tutorSortedList);
+            System.out.println("\n\nSaving data...");
+            Seperate.systemPause();
+        }
     }
 }
