@@ -47,19 +47,6 @@ public class TutorDAO {
 
     public static void writeTutorsToFile(String fileName, SortedListInterface<Tutor> tutorList) {
 
-        File file = new File(fileName);
-        try {
-            // Check if the file already exists
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.err.println("An error occurred: " + e.getMessage());
-            e.printStackTrace();
-        }
-        
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
 

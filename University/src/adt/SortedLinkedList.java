@@ -36,7 +36,39 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
 
     @Override
     public T remove(T anEntry) {
-        throw new UnsupportedOperationException();	// Left as Practical exercise
+        // Check if the list is empty
+        if (isEmpty()) {
+            return null; // List is empty, nothing to remove
+        }
+
+        Node nodeBefore = null;
+        Node currentNode = firstNode;
+
+        // Iterate through the list while comparing each element's value
+        // to the target 'anEntry' using the 'compareTo' method.
+        while (currentNode != null && anEntry.compareTo(currentNode.data) > 0) {
+            nodeBefore = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        // Check if the target entry is found
+        if (currentNode != null && currentNode.data.equals(anEntry)) {
+            // Entry found, remove it
+            if (nodeBefore == null) {
+                // Entry is at the beginning of the list
+                firstNode = currentNode.next;
+            } else {
+                // Entry is in the middle or at the end
+                nodeBefore.next = currentNode.next;
+            }
+            numberOfEntries--;
+
+            // Return the removed entry's data
+            return currentNode.data;
+        } else {
+            // Entry not found
+            return null;
+        }
     }
 
     @Override

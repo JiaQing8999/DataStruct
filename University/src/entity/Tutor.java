@@ -1,5 +1,8 @@
 package entity;
 
+import adt.*;
+import java.util.Iterator;
+
 /**
  *
  * @author Lim Jia Qing
@@ -99,6 +102,43 @@ public class Tutor implements Comparable<Tutor> {
     public int compareTo(Tutor o) {
         // Compare the tutorIDs of the current Tutor and the other Tutor
         return this.tutorID.compareTo(o.tutorID);
+    }
+
+    public String generateNewTutorID(SortedListInterface<Tutor> tutorSortedList) {
+        // Initialize the new ID
+        String newID = null;
+
+        // Define the format of the tutor ID
+        String idPrefix = "TU";
+        int idLength = 6; // Length of the numeric part of the ID
+        int startingID = 1; // The starting numeric part of the ID
+
+        // Create an iterator for the sorted list
+        Iterator<Tutor> iterator = tutorSortedList.getIterator();
+
+        while (iterator.hasNext()) {
+            Tutor currentTutor = iterator.next();
+
+            // Construct the expected ID (e.g., "TU000001")
+            String expectedID = idPrefix + String.format("%0" + idLength + "d", startingID);
+
+            // Compare the current tutor's ID with the expected ID
+            if (!currentTutor.getTutorID().equals(expectedID)) {
+                // Found a missing ID, use it as the new ID
+                newID = expectedID;
+                break; // Exit the loop
+            }
+
+            // Increment the starting ID for the next iteration
+            startingID++;
+        }
+
+        // If no missing ID was found, generate a new ID based on the last known ID
+        if (newID == null) {
+            newID = idPrefix + String.format("%0" + idLength + "d", startingID);
+        }
+
+        return newID;
     }
 
     public String formatTutorData() {
