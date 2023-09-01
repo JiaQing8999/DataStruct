@@ -1,8 +1,10 @@
 package adt;
 
+import java.util.Iterator;
+
 /**
  *
- * @author 
+ * @author
  */
 public class LinkedList<T> implements ListInterface<T> {
 
@@ -163,6 +165,36 @@ public class LinkedList<T> implements ListInterface<T> {
             currentNode = currentNode.next;
         }
         return outputStr;
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<T> {
+
+        private LinkedList.Node currentNode;
+
+        public LinkedListIterator() {
+            currentNode = firstNode;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext()) {
+                T returnData = currentNode.data;
+                currentNode = currentNode.next;
+                return returnData;
+            } else {
+                return null;
+            }
+        }
     }
 
     private class Node {
