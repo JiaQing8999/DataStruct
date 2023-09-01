@@ -4,6 +4,7 @@ import adt.*;
 import boundary.*;
 import dao.*;
 import entity.Tutor;
+import java.util.Iterator;
 import utility.*;
 
 /**
@@ -38,6 +39,7 @@ public class ManageTutor {
                     break;
                 case 2:
                     //Find tutor
+                    findTutor();
                     break;
                 case 3:
                     //Amend tutor details
@@ -62,12 +64,12 @@ public class ManageTutor {
 
     public void addNewTutor() {
 
-        Parts.header("Add a tutor");
+        Parts.header("Add A Tutor");
 
         Tutor newTutor = new Tutor();
         // Generate Tutor ID
         newTutor.setTutorID(newTutor.generateNewTutorID(tutorSortedList));
-        
+
         newTutor.setName(tutorUI.inputName());
         newTutor.setGender(tutorUI.inputGender());
         newTutor.setIc(tutorUI.inputIC());
@@ -99,5 +101,55 @@ public class ManageTutor {
         TutorDAO.writeTutorsToFile(fileName, tutorSortedList);
         System.out.println("\n\nSaving data...");
         Seperate.systemPause();
+    }
+
+    public void findTutor() {
+        int searchOption;
+
+        do {
+            Parts.header("Find Tutor");
+
+            String[] searchOptions = {"Search by Tutor ID", "Search by Name"};
+            searchOption = Parts.menu(searchOptions, "Back to Main Menu");
+
+            if (searchOption == 0) {
+                break; // User selected to go back to the main menu
+            }
+            
+            Parts.header("Find Tutor");
+            
+            String searchCriteria = Validate.stringInput("Enter the search criteria: ", "Invalid input. Please enter a valid search criteria.");
+
+            SortedListInterface<Tutor> searchResults = new SortedLinkedList<>();
+
+            for (int i = 1; i <= tutorSortedList.getNumberOfEntries(); i++) {
+                Tutor currentTutor = tutorSortedList.getEntry(i);
+
+                if ((searchOption == 1 && currentTutor.getTutorID().equalsIgnoreCase(searchCriteria))
+                        || (searchOption == 2 && currentTutor.getName().equalsIgnoreCase(searchCriteria))) {
+                    // Add the tutor to the search results if there is a match
+                    searchResults.add(currentTutor);
+                }
+            }
+
+            if (searchResults.isEmpty()) {
+                System.out.println("No tutors found matching the criteria.");
+            } else {
+                System.out.println("Tutors found: " + searchResults.getNumberOfEntries());
+
+                // Use an iterator to print out tutor details
+                Iterator<Tutor> iterator = searchResults.getIterator();
+                int resultIndex = 1;
+                while (iterator.hasNext()) {
+                    System.out.println("\nResult " + resultIndex + ":");
+                    Tutor tutor = iterator.next();
+                    System.out.println(tutor);
+                    resultIndex++;
+                }
+            }
+
+            System.out.println(); // Add a newline for readability
+            Seperate.systemPause();
+        } while (searchOption != 0);
     }
 }
