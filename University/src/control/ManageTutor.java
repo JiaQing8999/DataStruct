@@ -2,6 +2,7 @@ package control;
 
 import boundary.*;
 import entity.Tutor;
+import utility.*;
 
 /**
  *
@@ -51,14 +52,25 @@ public class ManageTutor {
     }
 
     public void addNewTutor() {
-        Parts.header("Add a tutor");
         
+        Parts.header("Add a tutor");
+
         Tutor newTutor = new Tutor();
         newTutor.setName(tutorUI.inputName());
         newTutor.setGender(tutorUI.inputGender());
         newTutor.setIc(tutorUI.inputIC());
         newTutor.setContactNum(tutorUI.inputContactNum());
         newTutor.setFaculty(tutorUI.selectFaculty());
-        
+
+        Seperate.clearScreen();
+        Parts.header("Add a tutor");
+        System.out.println("  New tutor details");
+        System.out.println("  -----------------");
+        System.out.println(newTutor);
+
+        char confirm = Validate.yesNoInput("Comfirm to add " + newTutor.getTutorID() + "?", "  Character input only.");
+        if(confirm == 'Y'){
+            
+        }
     }
 }
