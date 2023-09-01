@@ -3,6 +3,7 @@ package dao;
 import adt.LinkedList;
 import entity.Tutor;
 import java.io.*;
+import java.util.Iterator;
 
 /**
  *
@@ -43,6 +44,27 @@ public class TutorDAO {
 
         return tutorList;
     }
-    
-    
+
+    public static void writeTutorsToFile(String fileName, LinkedList<Tutor> tutorList) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+
+            // Get an iterator for the tutorList
+            Iterator<Tutor> iterator = tutorList.getIterator();
+
+            while (iterator.hasNext()) {
+                Tutor tutor = iterator.next();
+                // Format the tutor data as needed and write it to the file
+                String tutorData = tutor.formatTutorData();
+                writer.write(tutorData);
+                writer.newLine(); // Add a newline after each tutor entry
+            }
+
+            writer.close(); // Close the BufferedWriter
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error writing to file \"" + fileName + "\" : " + e.getMessage());
+        }
+    }
+
 }

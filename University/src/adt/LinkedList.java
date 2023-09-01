@@ -174,7 +174,7 @@ public class LinkedList<T> implements ListInterface<T> {
 
     private class LinkedListIterator implements Iterator<T> {
 
-        private LinkedList.Node currentNode;
+        private LinkedList<T>.Node currentNode;
 
         public LinkedListIterator() {
             currentNode = firstNode;

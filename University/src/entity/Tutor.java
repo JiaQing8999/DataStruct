@@ -86,4 +86,8 @@ public class Tutor implements Comparable<Tutor> {
         // Compare the tutorIDs of the current Tutor and the other Tutor
         return this.tutorID.compareTo(o.tutorID);
     }
+    
+    public String formatTutorData(){
+        return tutorID + "|" + name + "|" + gender + "|" + ic + "|" + contactNum + "|" + faculty;
+    }
 }
