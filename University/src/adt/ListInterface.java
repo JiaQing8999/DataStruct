@@ -5,6 +5,8 @@ import java.util.Iterator;
 /**
  *
  * @author Lim Jia Qing
+ * 
+ * shared with sowyichin
  */
 public interface ListInterface<T> {
     
@@ -14,19 +16,21 @@ public interface ListInterface<T> {
 
     public boolean add(int newPosition, T newEntry);
 
-    public T remove(int givenPosition);
-
-    public void clear();
-
+    public boolean remove(int givenPosition);
+    
     public boolean replace(int givenPosition, T newEntry);
 
+    public void clear();
+    
+    public boolean isEmpty();
+    
+    public int getNumberOfEntries();
+    
     public T getEntry(int givenPosition);
 
     public boolean contains(T anEntry);
-
-    public int getNumberOfEntries();
-
-    public boolean isEmpty();
+    
+    public int indexOf(T anEntry);
 
     public boolean isFull();
 }
