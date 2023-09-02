@@ -47,6 +47,7 @@ public class ManageTutor {
                     break;
                 case 4:
                     //Tutors list
+                    listAllTutor();
                     break;
                 case 5:
                     //Remove tutor
@@ -207,7 +208,7 @@ public class ManageTutor {
             System.out.println("Tutor removed.");
             changePerformed = true;
         }
-        
+
         return changePerformed;
     }
 
@@ -291,7 +292,46 @@ public class ManageTutor {
                     break;
             }
         } while (editSelection > 0 && editSelection < 6);       // not select 6 or 0, loop
-        
+
         return changePerformed;
+    }
+
+    private void listAllTutor() {
+        Parts.header("List Tutors");
+        Parts.sectionHeader("All Tutors");
+        if (tutorSortedList.isEmpty()) {
+            System.out.println("No tutors found.");
+        } else {
+            int index = 1;
+            Iterator<Tutor> iterator = tutorSortedList.getIterator();
+            System.out.println(" No.  Tutor ID  Name                  Gender  IC            Contact Num  Faculty");
+            System.out.println("---------------------------------------------------------------------------------");
+            while (iterator.hasNext()) {
+                Tutor tutor = iterator.next();
+                String name = tutor.getName();
+
+                for (int i = 0; i < Math.ceil((double) name.length() / 20); i++) {
+                    int endIndex = Math.min((i + 1) * 20, name.length());
+                    String nameLine = name.substring(i * 20, endIndex);
+                    System.out.printf("%3d.  %-8s  %-20s    %-4s  %-12s  %-11s   %-4s%n",
+                            index++,
+                            tutor.getTutorID(),
+                            i == 0 ? nameLine : "", // Only print the name on the first line
+                            i == 0 ? tutor.getGender() : "", // Gender only on the first line
+                            i == 0 ? tutor.getIc() : "", // IC only on the first line
+                            i == 0 ? tutor.getContactNum() : "", // Contact Num only on the first line
+                            i == 0 ? tutor.getFaculty() : "" // Faculty only on the first line
+                    );
+                }
+            }
+        }
+        Seperate.systemPause();
+        
+        //Select the category to arrange
+        
+        //Select asc / desc
+        
+        //Loop back
+        
     }
 }
