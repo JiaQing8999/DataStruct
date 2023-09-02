@@ -168,6 +168,11 @@ public class LinkedList<T> implements ListInterface<T> {
         return new LinkedListIterator();
     }
 
+    @Override
+    public int indexOf(T anEntry) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private class LinkedListIterator implements Iterator<T> {
 
         private LinkedList<T>.Node currentNode;
