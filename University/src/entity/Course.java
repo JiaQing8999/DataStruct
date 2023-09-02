@@ -3,6 +3,8 @@
  */
 
 package entity;
+import adt.DoublyLinkedList;
+import adt.ListInterface;
 import java.util.Objects;
 
 public class Course {
@@ -12,7 +14,7 @@ public class Course {
     private String courseDescription;
     private int courseCreditHours;
     private int courseYearCommenced;
-    private String[] programmeID;
+    private ListInterface<String> programmeID = new DoublyLinkedList<>();
 
     public Course() {
     }
@@ -21,7 +23,7 @@ public class Course {
         this.courseID = courseID;
     }
 
-    public Course(String courseID, String courseName, String courseDescription, int courseCreditHours, int courseYearCommenced, String[] programmeID) {
+    public Course(String courseID, String courseName, String courseDescription, int courseCreditHours, int courseYearCommenced, ListInterface<String> programmeID) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.courseDescription = courseDescription;
@@ -70,14 +72,14 @@ public class Course {
         this.courseYearCommenced = courseYearCommenced;
     }
 
-    public String[] getProgrammeID() {
+    public ListInterface<String> getProgrammeID() {
         return programmeID;
     }
 
-    public void setProgrammeID(String[] programmeID) {
+    public void setProgrammeID(ListInterface<String> programmeID) {
         this.programmeID = programmeID;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
