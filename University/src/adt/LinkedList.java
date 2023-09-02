@@ -68,26 +68,22 @@ public class LinkedList<T> implements ListInterface<T> {
     }
 
     @Override
-    public T remove(int givenPosition) {
-        T result = null;                 // return value
-
+    public boolean remove(int givenPosition) {
         if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
-            if (givenPosition == 1) {      // case 1: remove first entry
-                result = firstNode.data;     // save entry to be removed
+            if (givenPosition == 1) { // case 1: remove first entry
                 firstNode = firstNode.next;
-            } else {                         // case 2: givenPosition > 1
+            } else { // case 2: givenPosition > 1
                 Node nodeBefore = firstNode;
                 for (int i = 1; i < givenPosition - 1; ++i) {
-                    nodeBefore = nodeBefore.next;		// advance nodeBefore to its next node
+                    nodeBefore = nodeBefore.next; // advance nodeBefore to its next node
                 }
-                result = nodeBefore.next.data;  // save entry to be removed
-                nodeBefore.next = nodeBefore.next.next;	// make node before point to node after the
-            } 																// one to be deleted (to disconnect node from chain)
-
+                nodeBefore.next = nodeBefore.next.next; // make node before point to node after the one to be deleted (to disconnect node from chain)
+            }
             numberOfEntries--;
+            return true; // Successfully removed the entry
+        } else {
+            return false; // Removal failed (invalid position)
         }
-
-        return result; // return removed entry, or null if operation fails
     }
 
     @Override
@@ -170,6 +166,11 @@ public class LinkedList<T> implements ListInterface<T> {
     @Override
     public Iterator<T> getIterator() {
         return new LinkedListIterator();
+    }
+
+    @Override
+    public int indexOf(T anEntry) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     private class LinkedListIterator implements Iterator<T> {
