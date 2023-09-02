@@ -105,91 +105,9 @@ public class ManageTutor {
         Seperate.systemPause();
     }
 
-    public void findTutor(boolean hasDelete) {
-        int searchOption;
-        boolean deletePerformed = false;
-
-        do {
-            if (hasDelete) {
-                Parts.header("Remove a Tutor");
-            } else {
-                Parts.header("Find a Tutor");
-            }
-
-            String[] searchOptions = {"Search by Tutor ID", "Search by Name"};
-            searchOption = Parts.menu(searchOptions, "Back to Menu");
-
-            if (searchOption == 0) {
-                break; // User selected to go back to the main menu
-            }
-
-            Parts.header("Find Tutor");
-            String searchCriteria = null;
-            if (searchOption == 1) {
-                searchCriteria = Tutor.tutorIdInput("Enter the search Tutor ID: ", "  Invalid input. Please enter a valid tutor id format.");
-            } else if (searchOption == 2) {
-                searchCriteria = Validate.stringInput("Enter the search name: ", "  Invalid input. Please enter a name.");
-            }
-            SortedListInterface<Tutor> searchResults = new SortedLinkedList<>();
-
-            for (int i = 1; i <= tutorSortedList.getNumberOfEntries(); i++) {
-                Tutor currentTutor = tutorSortedList.getEntry(i);
-
-                if ((searchOption == 1 && currentTutor.getTutorID().equalsIgnoreCase(searchCriteria))
-                        || (searchOption == 2 && currentTutor.getName().equalsIgnoreCase(searchCriteria))) {
-                    // Add the tutor to the search results if there is a match
-                    searchResults.add(currentTutor);
-                }
-            }
-
-            if (searchResults.isEmpty()) {
-                System.out.println("No tutors found matching the criteria.");
-            } else {
-                System.out.println("Tutors found: " + searchResults.getNumberOfEntries());
-
-                if (hasDelete) {
-                    String[] deleteOptions = new String[searchResults.getNumberOfEntries()];
-                    for (int i = 1; i <= searchResults.getNumberOfEntries(); i++) {
-                        Tutor tutor = searchResults.getEntry(i);
-                        deleteOptions[i - 1] = tutor.getTutorID() + ", " + tutor.getName();
-                    }
-                    int deleteSelection = Parts.menu(deleteOptions, "Cancel Deletion");
-                    if (deleteSelection == 0) {
-                        System.out.println("Deletion canceled.");
-                    } else {
-                        deletePerformed = true;
-                        // Delete the selected tutor
-                        tutorSortedList.remove(searchResults.getEntry(deleteSelection));
-                        System.out.println("Tutor removed.");
-                    }
-                } else {
-                    // Use an iterator to print out tutor details
-                    Iterator<Tutor> iterator = searchResults.getIterator();
-                    int resultIndex = 1;
-                    while (iterator.hasNext()) {
-                        System.out.println("\nResult " + resultIndex + ":");
-                        Tutor tutor = iterator.next();
-                        System.out.println(tutor);
-                        resultIndex++;
-                        System.out.println(); // Add a newline for readability
-                    }
-                }
-            }
-
-            Seperate.systemPause();
-        } while (searchOption != 0);
-
-        if (deletePerformed) {
-            //write entire sorted list into file
-            TutorDAO.writeTutorsToFile(fileName, tutorSortedList);
-            System.out.println("\n\nSaving data...");
-            Seperate.systemPause();
-        }
-    }
-
     public void findTutor(String operation) {
         int searchOption;
-        boolean deletePerformed = false;
+        boolean changePerformed = false;
 
         do {
             switch (operation) {
@@ -240,13 +158,13 @@ public class ManageTutor {
                 switch (operation) {
                     case "Remove":
                         // Remove tutor
-                        removeTutor(searchResults);
+                        changePerformed = removeTutor(searchResults);
                         break;
                     case "Search":
                         displayTutors(searchResults);
                         break;
                     case "Edit":
-
+                        changePerformed = editTutor(searchResults);
                         break;
                     default:
                         break;
@@ -255,7 +173,7 @@ public class ManageTutor {
             Seperate.systemPause();
         } while (searchOption != 0);
 
-        if (deletePerformed) {
+        if (changePerformed) {
             //write entire sorted list into file
             TutorDAO.writeTutorsToFile(fileName, tutorSortedList);
             System.out.println("\n\nSaving data...");
@@ -263,10 +181,11 @@ public class ManageTutor {
         }
     }
 
-    private void removeTutor(SortedListInterface<Tutor> searchResults) {
+    private boolean removeTutor(SortedListInterface<Tutor> searchResults) {
         String[] deleteOptions = new String[searchResults.getNumberOfEntries()];
         Iterator<Tutor> tutorIterator = searchResults.getIterator();
         int index = 0;
+        boolean changePerformed = false;
 
         while (tutorIterator.hasNext()) {
             Tutor tutor = tutorIterator.next();
@@ -274,7 +193,7 @@ public class ManageTutor {
             index++;
         }
 
-        //Print out tutor details here
+        //Print out tutor details
         displayTutors(searchResults);
 
         Parts.sectionHeader("Delete Selection");
@@ -286,7 +205,10 @@ public class ManageTutor {
             // Delete the selected tutor
             tutorSortedList.remove(searchResults.getEntry(deleteSelection));
             System.out.println("Tutor removed.");
+            changePerformed = true;
         }
+        
+        return changePerformed;
     }
 
     private void displayTutors(SortedListInterface<Tutor> searchResults) {
@@ -300,5 +222,76 @@ public class ManageTutor {
             resultIndex++;
             System.out.println(); // Add a newline for readability
         }
+    }
+
+    private boolean editTutor(SortedListInterface<Tutor> searchResults) {
+        String[] editOptions = new String[searchResults.getNumberOfEntries()];
+        Iterator<Tutor> tutorIterator = searchResults.getIterator();
+        int index = 0;
+        boolean changePerformed = false;
+
+        while (tutorIterator.hasNext()) {
+            Tutor tutor = tutorIterator.next();
+            editOptions[index] = tutor.getTutorID() + ", " + tutor.getName();
+            index++;
+        }
+
+        //Print out tutor details here
+        displayTutors(searchResults);
+
+        Parts.sectionHeader("Select a tutor to edit");
+        int tutorSelection = Parts.menu(editOptions, "Cancel Edit");
+
+        if (tutorSelection == 0) {
+            System.out.println("Editing canceled.");
+            return false; // Cancel the editing process
+        }
+
+        // Get the selected tutor
+        Tutor selectedTutor = searchResults.getEntry(tutorSelection);
+
+        int editSelection;
+        do {
+            // Show again header and details of the tutor in Tutor class
+            Parts.header("Edit Tutor Details");
+
+            //Print out tutor details
+            SortedListInterface<Tutor> tutorDisplay = new SortedLinkedList<>();
+            tutorDisplay.add(selectedTutor);
+            displayTutors(tutorDisplay);
+
+            Parts.sectionHeader("Select edit field.");
+            // Select the field to edit (0 to Cancel edit, 6 to save edit)
+            editSelection = Parts.menu(new String[]{"Name", "Gender", "IC", "Contact Number", "Faculty", "Confirm Edit"}, "Cancel edit");
+
+            switch (editSelection) {
+                case 1:
+                    selectedTutor.setName(tutorUI.inputName());
+                    break;
+                case 2:
+                    selectedTutor.setGender(tutorUI.inputGender());
+                    break;
+                case 3:
+                    selectedTutor.setIc(tutorUI.inputIC());
+                    break;
+                case 4:
+                    selectedTutor.setContactNum(tutorUI.inputContactNum());
+                    break;
+                case 5:
+                    selectedTutor.setFaculty(tutorUI.selectFaculty());
+                    break;
+                case 6:
+                    tutorSortedList.remove(searchResults.getEntry(tutorSelection));
+                    tutorSortedList.add(selectedTutor);
+                    System.out.println("Tutor details edited.");
+                    changePerformed = true;
+                    break;
+                case 0:
+                    System.out.println("Cancel all edit...");
+                    break;
+            }
+        } while (editSelection > 0 && editSelection < 6);       // not select 6 or 0, loop
+        
+        return changePerformed;
     }
 }
