@@ -39,17 +39,18 @@ public class ManageTutor {
                     break;
                 case 2:
                     //Find tutor
-                    findTutor(false);
+                    findTutor("Search");
                     break;
                 case 3:
                     //Amend tutor details
+                    findTutor("Edit");
                     break;
                 case 4:
                     //Tutors list
                     break;
                 case 5:
                     //Remove tutor
-                    findTutor(true);
+                    findTutor("Remove");
                     break;
                 case 6:
                     //Generate reports
@@ -123,9 +124,12 @@ public class ManageTutor {
             }
 
             Parts.header("Find Tutor");
-
-            String searchCriteria = Validate.stringInput("Enter the search criteria: ", "Invalid input. Please enter a valid search criteria.");
-
+            String searchCriteria = null;
+            if (searchOption == 1) {
+                searchCriteria = Tutor.tutorIdInput("Enter the search Tutor ID: ", "  Invalid input. Please enter a valid tutor id format.");
+            } else if (searchOption == 2) {
+                searchCriteria = Validate.stringInput("Enter the search name: ", "  Invalid input. Please enter a name.");
+            }
             SortedListInterface<Tutor> searchResults = new SortedLinkedList<>();
 
             for (int i = 1; i <= tutorSortedList.getNumberOfEntries(); i++) {
@@ -180,6 +184,121 @@ public class ManageTutor {
             TutorDAO.writeTutorsToFile(fileName, tutorSortedList);
             System.out.println("\n\nSaving data...");
             Seperate.systemPause();
+        }
+    }
+
+    public void findTutor(String operation) {
+        int searchOption;
+        boolean deletePerformed = false;
+
+        do {
+            switch (operation) {
+                case "Search":
+                    Parts.header("Find a Tutor");
+                    break;
+                case "Edit":
+                    Parts.header("Edit Tutor Details");
+                    break;
+                case "Remove":
+                    Parts.header("Remove a Tutor");
+                    break;
+                default:
+                    break;
+            }
+
+            String[] searchOptions = {"Search by Tutor ID", "Search by Name"};
+            searchOption = Parts.menu(searchOptions, "Back to Menu");
+
+            if (searchOption == 0) {
+                break; // User selected to go back to the main menu
+            }
+
+            Parts.header("Find Tutor");
+            String searchCriteria = null;
+            if (searchOption == 1) {
+                searchCriteria = Tutor.tutorIdInput("Enter the search Tutor ID: ", "  Invalid input. Please enter a valid tutor id format.");
+            } else if (searchOption == 2) {
+                searchCriteria = Validate.stringInput("Enter the search name: ", "  Invalid input. Please enter a name.");
+            }
+            SortedListInterface<Tutor> searchResults = new SortedLinkedList<>();
+
+            for (int i = 1; i <= tutorSortedList.getNumberOfEntries(); i++) {
+                Tutor currentTutor = tutorSortedList.getEntry(i);
+
+                if ((searchOption == 1 && currentTutor.getTutorID().equalsIgnoreCase(searchCriteria))
+                        || (searchOption == 2 && currentTutor.getName().equalsIgnoreCase(searchCriteria))) {
+                    // Add the tutor to the search results if there is a match
+                    searchResults.add(currentTutor);
+                }
+            }
+
+            if (searchResults.isEmpty()) {      // Result Not found
+                System.out.println("No tutors found matching the criteria.");
+            } else {        // Result found
+                System.out.println("Tutors found: " + searchResults.getNumberOfEntries());
+
+                switch (operation) {
+                    case "Remove":
+                        // Remove tutor
+                        removeTutor(searchResults);
+                        break;
+                    case "Search":
+                        displayTutors(searchResults);
+                        break;
+                    case "Edit":
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Seperate.systemPause();
+        } while (searchOption != 0);
+
+        if (deletePerformed) {
+            //write entire sorted list into file
+            TutorDAO.writeTutorsToFile(fileName, tutorSortedList);
+            System.out.println("\n\nSaving data...");
+            Seperate.systemPause();
+        }
+    }
+
+    private void removeTutor(SortedListInterface<Tutor> searchResults) {
+        String[] deleteOptions = new String[searchResults.getNumberOfEntries()];
+        Iterator<Tutor> tutorIterator = searchResults.getIterator();
+        int index = 0;
+
+        while (tutorIterator.hasNext()) {
+            Tutor tutor = tutorIterator.next();
+            deleteOptions[index] = tutor.getTutorID() + ", " + tutor.getName();
+            index++;
+        }
+
+        //Print out tutor details here
+        displayTutors(searchResults);
+
+        Parts.sectionHeader("Delete Selection");
+        int deleteSelection = Parts.menu(deleteOptions, "Cancel Deletion");
+
+        if (deleteSelection == 0) {
+            System.out.println("Deletion canceled.");
+        } else {
+            // Delete the selected tutor
+            tutorSortedList.remove(searchResults.getEntry(deleteSelection));
+            System.out.println("Tutor removed.");
+        }
+    }
+
+    private void displayTutors(SortedListInterface<Tutor> searchResults) {
+        Iterator<Tutor> iterator = searchResults.getIterator();
+        int resultIndex = 1;
+
+        while (iterator.hasNext()) {
+            System.out.println("\nResult " + resultIndex + ":");
+            Tutor tutor = iterator.next();
+            System.out.println(tutor);
+            resultIndex++;
+            System.out.println(); // Add a newline for readability
         }
     }
 }
