@@ -2,6 +2,7 @@ package entity;
 
 import adt.*;
 import java.util.Iterator;
+import utility.*;
 
 /**
  *
@@ -143,5 +144,21 @@ public class Tutor implements Comparable<Tutor> {
 
     public String formatTutorData() {
         return tutorID + "|" + name + "|" + gender + "|" + ic + "|" + contactNum + "|" + faculty;
+    }
+
+    public static String tutorIdInput(String promptMsg, String errorMsg) {
+        String id;
+        String formatRegex = "TU\\d{6}"; // Define the required format (e.g., TU followed by 6 digits)
+
+        do {
+            id = Validate.stringNullCheckingInput(promptMsg, errorMsg); // Get non-empty input using stringNullCheckingInput
+
+            // Check if the input matches the required format
+            if (!id.matches(formatRegex)) {
+                System.out.println(errorMsg); // Display the error message if the format is invalid
+            }
+        } while (!id.matches(formatRegex)); // Continue until a valid tutor ID is provided
+
+        return id;
     }
 }
