@@ -21,6 +21,17 @@ public class Parts {
         System.out.println("===" + headerSeparator + "===\n");
     }
 
+    public static void sectionHeader(String sectionName) {
+        String sectionSeparator = "";
+
+        for (int i = 0; i < sectionName.length(); i++) {
+            sectionSeparator += "-";
+        }
+
+        System.out.println("  " + sectionName);
+        System.out.println("  " + sectionSeparator);
+    }
+
     public static int menu(String[] menuOptions, String closeOperation) {
         // Initialize variables
         int minSelection;

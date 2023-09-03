@@ -4,7 +4,7 @@ package boundary;
  *
  * @author meikee
  */
-public class tutorialGroupUI {
+public class TutorialGroupUI {
 
     //Main menu of tutorial group module
     public int getTutorialGrpMenuSelection() {

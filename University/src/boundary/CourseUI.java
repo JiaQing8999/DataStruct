@@ -5,12 +5,9 @@ package boundary;
 
 import entity.Course;
 import java.util.Calendar;
-import java.util.Scanner;
 import utility.Validate;
 
 public class CourseUI {
-
-    Scanner scanner = new Scanner(System.in);
 
     //Main menu of course module
     public int getCourseMenuSelection() {
@@ -19,6 +16,7 @@ public class CourseUI {
             "Remove course",
             "Find course",
             "Amend course details",
+            "List all course",
             "Add programme to course",
             "Remove programme from course",
             "Generate reports"};
@@ -50,6 +48,11 @@ public class CourseUI {
     public int inputCourseYearCommenced() {
         Calendar calendar = Calendar.getInstance();
         return calendar.get(Calendar.YEAR);
+    }
+    
+     public String inputCourseProgrammeID() {
+         String courseProgrammeID = Validate.stringNullCheckingInput("Programme ID : ", "  This field cannot be empty.");
+        return courseProgrammeID;
     }
 
     public Course inputProductDetails() {
