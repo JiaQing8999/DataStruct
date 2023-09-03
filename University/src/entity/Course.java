@@ -1,14 +1,14 @@
 /*
  * @author sowyichin
  */
-
 package entity;
+
 import adt.DoublyLinkedList;
 import adt.ListInterface;
 import java.util.Objects;
 
 public class Course {
-    
+
     private String courseID;
     private String courseName;
     private String courseDescription;
@@ -31,7 +31,7 @@ public class Course {
         this.courseYearCommenced = courseYearCommenced;
         this.programmeID = programmeID;
     }
-    
+
     public String getCourseID() {
         return courseID;
     }
@@ -78,6 +78,14 @@ public class Course {
 
     public void setProgrammeID(ListInterface<String> programmeID) {
         this.programmeID = programmeID;
+    }
+
+    //method to add a program ID to the course
+    public void addProgrammeID(String programmeID) {
+        if (this.programmeID == null) {
+            this.programmeID = new DoublyLinkedList<>(); // Initialize with an empty list
+        }
+        this.programmeID.add(programmeID);
     }
 
     @Override

@@ -49,6 +49,11 @@ public class CourseUI {
         Calendar calendar = Calendar.getInstance();
         return calendar.get(Calendar.YEAR);
     }
+    
+     public String inputCourseProgrammeID() {
+         String courseProgrammeID = Validate.stringNullCheckingInput("Programme ID : ", "  This field cannot be empty.");
+        return courseProgrammeID;
+    }
 
     public Course inputProductDetails() {
         String courseID = inputCourseID();
