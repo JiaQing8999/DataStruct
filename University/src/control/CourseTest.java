@@ -64,7 +64,6 @@ public class CourseTest {
                     generateReport();
                     break;
                 case 0:
-                    System.out.println("Saving Data...");
                     //Close
                     System.out.println("Close.");
                     break;
@@ -92,8 +91,7 @@ public class CourseTest {
             System.out.println("************************************************************************************************************");
             System.out.printf("%9s   %-30s    %-40s %4d   %14d", inputCourse.getCourseID(), inputCourse.getCourseName(),
                     inputCourse.getCourseDescription(), inputCourse.getCourseCreditHours(), inputCourse.getCourseYearCommenced());
-            System.out.println();
-            System.out.println();
+            System.out.println("\n\n");
 
             char confirm = Validate.yesNoInput("Comfirm to add ? (Y)es/(N)o > ", "  Character input only.");
             if (confirm == 'Y' || confirm == 'y') {
@@ -130,9 +128,9 @@ public class CourseTest {
                 Course cPrint = it.next();
                 System.out.printf("%2d  %9s    %-30s    ", index, cPrint.getCourseID(), cPrint.getCourseName());
                 index++;
-                System.out.println();
+                System.out.println("\n");
             }
-            System.out.println();
+            System.out.println("\n");
 
             //let user select no. of list to delete
             do {
@@ -157,8 +155,37 @@ public class CourseTest {
 
     //find course operation
     public void findCourse() {
-        Parts.header("Find Course");
 
+        char next;
+
+        do {
+            //header
+            Parts.header("Find Course");
+
+            //ask the user for enter course id
+            String searchID = cui.inputCourseName();
+            Course searchCourse = new Course(searchID);
+
+            //check the course id in the list or not, if yes search the list and display else show error msg
+            if (c.contains(searchCourse)) {
+                int index = c.indexOf(searchCourse);
+                Course afterSearchCourse = c.getEntry(index);
+                //print the search result
+                System.out.println("\n");
+                System.out.println("Course ID   Course name                       Course description               Credit Hours   Year Commenced");
+                System.out.println("************************************************************************************************************");
+                System.out.printf("%9s   %-30s    %-40s %4d   %14d", afterSearchCourse.getCourseID(), afterSearchCourse.getCourseName(),
+                        afterSearchCourse.getCourseDescription(), afterSearchCourse.getCourseCreditHours(), afterSearchCourse.getCourseYearCommenced());
+                System.out.println("\n\n");
+            } else {
+                System.out.println("\n");
+                System.out.println("This course doesn not exist...");
+                System.out.println("\n\n");
+            }
+
+            //loop?
+            next = Validate.yesNoInput("Search another course? (Y)es/(N)o > ", "  Character input only.");
+        } while (next == 'Y' || next == 'y');
         Seperate.systemPause();
     }
 
@@ -182,9 +209,9 @@ public class CourseTest {
                 Course cPrint = it.next();
                 System.out.printf("%2d  %9s    %-30s    %-40s ", index, cPrint.getCourseID(), cPrint.getCourseName(), cPrint.getCourseDescription());
                 index++;
-                System.out.println();
+                System.out.println("\n");
             }
-            System.out.println();
+            System.out.println("\n");
 
             //let user select no. of list to delete
             do {
@@ -235,29 +262,68 @@ public class CourseTest {
         Iterator<Course> it = c.getIterator();
         while (it.hasNext()) {
             Course cPrint = it.next();
-            System.out.printf("%9s   %-30s    %-40s %4d   %14d", cPrint.getCourseID(), cPrint.getCourseName(),
-                    cPrint.getCourseDescription(), cPrint.getCourseCreditHours(), cPrint.getCourseYearCommenced());
-            System.out.println();
-            System.out.println();
+            System.out.printf("%9s   %-30s    %-40s %4d   %14d %s", cPrint.getCourseID(), cPrint.getCourseName(),
+                    cPrint.getCourseDescription(), cPrint.getCourseCreditHours(), cPrint.getCourseYearCommenced(),cPrint.getProgrammeID());
+            System.out.println("\n\n");
         }
 
         //footer and syatem pause
         System.out.println("************************************************************************************************************");
         System.out.println("Total of Course (s) : " + c.getNumberOfEntries());
-        System.out.println();
-        System.out.println();
+        System.out.println("\n\n");
         Seperate.systemPause();
     }
 
     //add programme operation
     public void addProgramme() {
-        Parts.header("Add Programme to Course");
 
+        int givenPosition;
+        char next;
+
+        do {
+            int index = 1;
+            //clear screen and header
+            Parts.header("Add Programme to Course");
+
+            //iterator go through the list and print the list with no.
+            System.out.println("No.  Course ID   Course name               Prgramme");
+            System.out.println("***************************************************");
+
+            //iterator go through the list
+            Iterator<Course> it = c.getIterator();
+            while (it.hasNext()) {
+                Course cPrint = it.next();
+                System.out.printf("%2d  %9s    %-30s    ", index, cPrint.getCourseID(), cPrint.getCourseName());
+                index++;
+                System.out.println("\n");
+            }
+            System.out.println("\n");
+
+            //let user select no. of list to add programme
+            do {
+                System.out.print("Enter the no.(1-" + c.getNumberOfEntries() + ") to add a programme : ");
+                givenPosition = s.nextInt();
+            } while (givenPosition < 1 || givenPosition > c.getNumberOfEntries());
+
+            //input for programme id
+            String programmeID = cui.inputCourseProgrammeID();
+
+            //update the list
+            Course searchCourse = c.getEntry(givenPosition);
+
+            searchCourse.addProgrammeID(programmeID);
+            System.out.println("Programme add successfully");
+
+            //loop?
+            next = Validate.yesNoInput("Add another programme? (Y)es/(N)o > ", "  Character input only.");
+        } while (next == 'Y' || next == 'y');
         Seperate.systemPause();
     }
 
     //remove course operation
     public void removeProgramme() {
+        
+        //clear screen and header
         Parts.header("Remove Programme to Course");
 
         Seperate.systemPause();
