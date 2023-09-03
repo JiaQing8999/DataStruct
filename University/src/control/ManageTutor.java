@@ -310,29 +310,43 @@ public class ManageTutor {
                 Tutor tutor = iterator.next();
                 String name = tutor.getName();
 
-                for (int i = 0; i < Math.ceil((double) name.length() / 20); i++) {
-                    int endIndex = Math.min((i + 1) * 20, name.length());
-                    String nameLine = name.substring(i * 20, endIndex);
-                    System.out.printf("%3d.  %-8s  %-20s    %-4s  %-12s  %-11s   %-4s%n",
-                            index++,
-                            tutor.getTutorID(),
-                            i == 0 ? nameLine : "", // Only print the name on the first line
-                            i == 0 ? tutor.getGender() : "", // Gender only on the first line
-                            i == 0 ? tutor.getIc() : "", // IC only on the first line
-                            i == 0 ? tutor.getContactNum() : "", // Contact Num only on the first line
-                            i == 0 ? tutor.getFaculty() : "" // Faculty only on the first line
+                // Split the name into multiple lines every 20 characters
+                String[] nameLines = splitNameIntoLines(name);
+
+                for (int i = 0; i < nameLines.length; i++) {
+                    System.out.printf("%4s  %-8s  %-20s    %-4s  %-12s  %-11s   %-4s%n",
+                            i == 0 ? String.valueOf(index) + "." : "",
+                            i == 0 ? tutor.getTutorID() : "",
+                            nameLines[i],
+                            i == 0 ? tutor.getGender() : "",
+                            i == 0 ? tutor.getIc() : "",
+                            i == 0 ? tutor.getContactNum() : "",
+                            i == 0 ? tutor.getFaculty() : ""
                     );
                 }
+                index++;
             }
         }
         Seperate.systemPause();
-        
+
         //Select the category to arrange
-        
         //Select asc / desc
-        
         //Update list
         //Loop back
+    }
+
+    private String[] splitNameIntoLines(String name) {
+        int lineCount = (int) Math.ceil((double) name.length() / 20);
+        String[] nameLines = new String[lineCount];
+        int startIndex = 0;
+        int endIndex;
+
+        for (int i = 0; i < lineCount; i++) {
+            endIndex = Math.min(startIndex + 20, name.length());
+            nameLines[i] = name.substring(startIndex, endIndex);
+            startIndex = endIndex;
+        }
         
+        return nameLines;
     }
 }
