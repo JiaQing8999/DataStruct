@@ -112,24 +112,21 @@ public class Programme {
         String str = "Programme Name: " + progName + "\n"
                 + "Programme Code: " + progCode + "\n"
                 + "Programme Year: " + progYear + "\n"
-                + "Programme Sem: " + progSem + "\n\n" ;
-//        for (int i = 0; i < 2; i++) {
-//            for (int j = 0; j < 2; j++) {
-//                str += tutorialGroup[i][j] + " ";
-//            }
-//            str += "\n";
-//        }
+                + "Programme Sem: " + progSem + "\n\n";
+        for (int i = 0; i < tutorialGroup.length; i++) {
+            str += "G" + tutorialGroup[i] + " ";
+        }
         return str;
     }
-    
+
     public static void main(String[] args) {
         Programme p = new Programme();
-        
+
         p.setProgCode("RSW");
         p.setProgName("Bachelor Degree of Software Enginnering");
         p.setProgYear(2);
         p.setProgSem(1);
-        
+
         System.out.println(p.toString());
     }
 

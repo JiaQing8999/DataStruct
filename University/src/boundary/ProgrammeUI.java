@@ -79,18 +79,18 @@ public class ProgrammeUI {
         return sem;
     }
 
-    public String inputTutorialGroup() {
-        String group = "";
+    public int inputTutorialGroup() {
+        int group = 0;
 
         do {
-            group = Validate.stringNullCheckingInput("Enter tutorial group (eg. G1) : ",
+            group = Validate.intInput("Enter tutorial group : Group ",
                     "Tutorial group cannot be null.");
 
-            if (group.toUpperCase().charAt(0) != 'G') {
+            if (group < 1) {
                 System.out.println("Invalid tutorial group! Please enter again.");
             }
 
-        } while (group.toUpperCase().charAt(0) != 'G');
+        } while (group < 1);
 
         return group;
     }
