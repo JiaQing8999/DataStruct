@@ -12,16 +12,16 @@ public class Programme {
     private String progName;
     private int progYear;
     private int progSem;
-    private String[][] tutorialGroup;
+    private int[] tutorialGroup;
 
     public Programme() {
     }
-    
+
     // search and remove programme by id
     public Programme(String progCode) {
         this.progCode = progCode;
     }
-    
+
     // add programme
     public Programme(String progCode, String progName, int progYear, int progSem) {
         this.progCode = progCode;
@@ -29,16 +29,16 @@ public class Programme {
         this.progYear = progYear;
         this.progSem = progSem;
     }
-    
+
     // list tutorial belong to this programme
     public Programme(String progCode, int progYear, int progSem) {
         this.progCode = progCode;
         this.progYear = progYear;
         this.progSem = progSem;
     }
-    
+
     // list all the things
-    public Programme(String progCode, String progName, int progYear, int progSem, String[][] tutorialGroup) {
+    public Programme(String progCode, String progName, int progYear, int progSem, int[] tutorialGroup) {
         this.progCode = progCode;
         this.progName = progName;
         this.progYear = progYear;
@@ -78,11 +78,11 @@ public class Programme {
         this.progSem = progSem;
     }
 
-    public String[][] getTutorialGroup() {
+    public int[] getTutorialGroup() {
         return tutorialGroup;
     }
 
-    public void setTutorialGroup(String[][] tutorialGroup) {
+    public void setTutorialGroup(int[] tutorialGroup) {
         this.tutorialGroup = tutorialGroup;
     }
 
@@ -92,7 +92,6 @@ public class Programme {
 //        hash = 71 * hash + Objects.hashCode(this.progCode);
 //        return hash;
 //    }
-    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -110,9 +109,28 @@ public class Programme {
 
     @Override
     public String toString() {
-        String str = progCode + progName + progYear + progSem;
-
+        String str = "Programme Name: " + progName + "\n"
+                + "Programme Code: " + progCode + "\n"
+                + "Programme Year: " + progYear + "\n"
+                + "Programme Sem: " + progSem + "\n\n" ;
+//        for (int i = 0; i < 2; i++) {
+//            for (int j = 0; j < 2; j++) {
+//                str += tutorialGroup[i][j] + " ";
+//            }
+//            str += "\n";
+//        }
         return str;
+    }
+    
+    public static void main(String[] args) {
+        Programme p = new Programme();
+        
+        p.setProgCode("RSW");
+        p.setProgName("Bachelor Degree of Software Enginnering");
+        p.setProgYear(2);
+        p.setProgSem(1);
+        
+        System.out.println(p.toString());
     }
 
 }
