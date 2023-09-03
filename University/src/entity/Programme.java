@@ -1,5 +1,8 @@
 package entity;
 
+import adt.ListInterface;
+import adt.SortedLinkedList;
+import adt.SortedListInterface;
 import java.util.Objects;
 
 /**
@@ -12,7 +15,7 @@ public class Programme {
     private String progName;
     private int progYear;
     private int progSem;
-    private int[] tutorialGroup;
+    private SortedListInterface<Integer> tutorialGroup = new SortedLinkedList<>();
 
     public Programme() {
     }
@@ -38,7 +41,7 @@ public class Programme {
     }
 
     // list all the things
-    public Programme(String progCode, String progName, int progYear, int progSem, int[] tutorialGroup) {
+    public Programme(String progCode, String progName, int progYear, int progSem, SortedListInterface<Integer> tutorialGroup) {
         this.progCode = progCode;
         this.progName = progName;
         this.progYear = progYear;
@@ -78,20 +81,14 @@ public class Programme {
         this.progSem = progSem;
     }
 
-    public int[] getTutorialGroup() {
+    public SortedListInterface<Integer> getTutorialGroup() {
         return tutorialGroup;
     }
 
-    public void setTutorialGroup(int[] tutorialGroup) {
+    public void setTutorialGroup(SortedListInterface<Integer> tutorialGroup) {
         this.tutorialGroup = tutorialGroup;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 71 * hash + Objects.hashCode(this.progCode);
-//        return hash;
-//    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -113,10 +110,10 @@ public class Programme {
                 + "Programme Code: " + progCode + "\n"
                 + "Programme Year: " + progYear + "\n"
                 + "Programme Sem: " + progSem + "\n\n";
-        for (int i = 0; i < tutorialGroup.length; i++) {
-            str += "G" + tutorialGroup[i] + " ";
+        for (int i = 0; i < tutorialGroup.getNumberOfEntries(); i++) {
+            str += "Group " + tutorialGroup.getEntry(i) + " ";
         }
-        return str;
+        return "\b" + str;
     }
 
     public static void main(String[] args) {
@@ -126,6 +123,10 @@ public class Programme {
         p.setProgName("Bachelor Degree of Software Enginnering");
         p.setProgYear(2);
         p.setProgSem(1);
+        
+        p.tutorialGroup.add(24);
+        p.tutorialGroup.add(22);
+        p.tutorialGroup.add(20);
 
         System.out.println(p.toString());
     }
