@@ -28,6 +28,12 @@ public class Programme {
         this.progSem = progSem;
     }
 
+    public Programme(String progCode, int progYear, int progSem) {
+        this.progCode = progCode;
+        this.progYear = progYear;
+        this.progSem = progSem;
+    }
+
     public Programme(String progCode, String progName, int progYear, int progSem, String[][] tutorialGroup) {
         this.progCode = progCode;
         this.progName = progName;
