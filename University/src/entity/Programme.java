@@ -12,7 +12,7 @@ public class Programme {
     private String progName;
     private int progYear;
     private int progSem;
-    private int[] tutorialGroup;
+    private String[][] tutorialGroup;
 
     public Programme() {
     }
@@ -28,7 +28,7 @@ public class Programme {
         this.progSem = progSem;
     }
 
-    public Programme(String progCode, String progName, int progYear, int progSem, int[] tutorialGroup) {
+    public Programme(String progCode, String progName, int progYear, int progSem, String[][] tutorialGroup) {
         this.progCode = progCode;
         this.progName = progName;
         this.progYear = progYear;
@@ -68,11 +68,11 @@ public class Programme {
         this.progSem = progSem;
     }
 
-    public int[] getTutorialGroup() {
+    public String[][] getTutorialGroup() {
         return tutorialGroup;
     }
 
-    public void setTutorialGroup(int[] tutorialGroup) {
+    public void setTutorialGroup(String[][] tutorialGroup) {
         this.tutorialGroup = tutorialGroup;
     }
     
