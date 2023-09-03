@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.Programme;
 import utility.Validate;
 
 /**
@@ -27,7 +28,7 @@ public class ProgrammeUI {
         String code = "";
 
         do {
-            code = Validate.stringNullCheckingInput("Enter programme code (eg. RSW) : ", 
+            code = Validate.stringNullCheckingInput("Enter programme code (eg. RSW) : ",
                     "  Programme code cannot be null.");
 
             if (code.length() != 3) {
@@ -40,7 +41,7 @@ public class ProgrammeUI {
     }
 
     public String inputProgName() {
-        String name = Validate.stringNullCheckingInput("Enter programme name (eg. Bachelor Degree of Software Engineering) : ", 
+        String name = Validate.stringNullCheckingInput("Enter programme name (eg. Bachelor Degree of Software Engineering) : ",
                 "  Programme name cannot be null.");
 
         return name;
@@ -50,7 +51,7 @@ public class ProgrammeUI {
         int year = 0;
 
         do {
-            year = Validate.intInput("Enter programme year (1-3) : ", 
+            year = Validate.intInput("Enter programme year (1-3) : ",
                     "Programme year cannot be null and only accept number.");
 
             if (year < 1 || year > 3) {
@@ -66,7 +67,7 @@ public class ProgrammeUI {
         int sem = 0;
 
         do {
-            sem = Validate.intInput("Enter programme sem (1-3) : ", 
+            sem = Validate.intInput("Enter programme sem (1-3) : ",
                     "Programme sem cannot be null and only accept number.");
 
             if (sem < 1 || sem > 3) {
@@ -77,28 +78,28 @@ public class ProgrammeUI {
 
         return sem;
     }
-    
-    public String inputTutorialGroup(){
+
+    public String inputTutorialGroup() {
         String group = "";
-        
+
         do {
-            group = Validate.stringNullCheckingInput("Enter tutorial group (eg. G1) : ", 
+            group = Validate.stringNullCheckingInput("Enter tutorial group (eg. G1) : ",
                     "Tutorial group cannot be null.");
 
-            if (group.toUpperCase().charAt(0) != 'G' ) {
+            if (group.toUpperCase().charAt(0) != 'G') {
                 System.out.println("Invalid tutorial group! Please enter again.");
             }
 
-        } while (group.toUpperCase().charAt(0) != 'G' );
+        } while (group.toUpperCase().charAt(0) != 'G');
 
         return group;
     }
-    
-    public int inputNumPaxInTutorialGroup(){
+
+    public int inputNumPaxInTutorialGroup() {
         int num = 0;
-        
+
         do {
-            num = Validate.intInput("Number of student in this tutorial group : ", 
+            num = Validate.intInput("Number of student in this tutorial group : ",
                     "Number of student cannot be null and only accept number.");
 
             if (num < 0) {
