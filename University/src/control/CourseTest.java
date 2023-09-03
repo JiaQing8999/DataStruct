@@ -262,8 +262,8 @@ public class CourseTest {
         Iterator<Course> it = c.getIterator();
         while (it.hasNext()) {
             Course cPrint = it.next();
-            System.out.printf("%9s   %-30s    %-40s %4d   %14d %s", cPrint.getCourseID(), cPrint.getCourseName(),
-                    cPrint.getCourseDescription(), cPrint.getCourseCreditHours(), cPrint.getCourseYearCommenced(),cPrint.getProgrammeID());
+            System.out.printf("%9s   %-30s    %-40s %4d   %14d", cPrint.getCourseID(), cPrint.getCourseName(),
+                    cPrint.getCourseDescription(), cPrint.getCourseCreditHours(), cPrint.getCourseYearCommenced());
             System.out.println("\n\n");
         }
 
@@ -286,7 +286,7 @@ public class CourseTest {
             Parts.header("Add Programme to Course");
 
             //iterator go through the list and print the list with no.
-            System.out.println("No.  Course ID   Course name               Prgramme");
+            System.out.println("No.  Course ID   Course name               ");
             System.out.println("***************************************************");
 
             //iterator go through the list
@@ -322,16 +322,109 @@ public class CourseTest {
 
     //remove course operation
     public void removeProgramme() {
-        
+
+        int givenPosition, progGivenPosition;
+        char next;
+
+        int index = 1;
         //clear screen and header
         Parts.header("Remove Programme to Course");
 
+        //iterator go through the list and print the list with no.
+        System.out.println("No.  Course ID   Course name               ");
+        System.out.println("*******************************************");
+
+        //iterator go through the list
+        Iterator<Course> it = c.getIterator();
+        while (it.hasNext()) {
+            Course cPrint = it.next();
+            System.out.printf("%2d  %9s    %-30s    ", index, cPrint.getCourseID(), cPrint.getCourseName());
+            index++;
+            System.out.println("\n");
+        }
+        System.out.println("\n");
+
+        //let user select no. of course list to delete programme
+        do {
+            System.out.print("Enter the no.(1-" + c.getNumberOfEntries() + ") to delete the programme : ");
+            givenPosition = s.nextInt();
+        } while (givenPosition < 1 || givenPosition > c.getNumberOfEntries());
+
+        //get user selected data
+        Course afterSearchCourse = c.getEntry(givenPosition);
+
+        //if programme list != null display the programme of that course in no., else show msg
+        if (afterSearchCourse.getProgrammeID() != null) {
+            //iterator go through to get the programme id
+            int no = 1;
+            ListInterface<String> programmeList = afterSearchCourse.getProgrammeID();
+            Iterator<String> pit = programmeList.getIterator();
+            while (pit.hasNext()) {
+                String programmeID = pit.next();
+                System.out.printf("%d. %s\n", no, programmeID);
+                no++;
+            }
+            System.out.println("\n");
+
+            //ask user which no. of programme need delete
+            do {
+                System.out.print("Enter the no. of programme that want delete : ");
+                progGivenPosition = s.nextInt();
+            } while (progGivenPosition < 1 || progGivenPosition > no);
+            //confirm delete
+            //ask user confirm to delete or not
+            char confirm = Validate.yesNoInput("Comfirm to delete ? (Y)es/(N)o > ", "  Character input only.");
+            if (confirm == 'Y' || confirm == 'y') {
+                if (programmeList.remove(progGivenPosition)) {
+                    System.out.println("Delete successfully");
+                }
+                if (programmeList.isEmpty()) {
+                    afterSearchCourse.setProgrammeID(null);
+                }
+            }
+        } else {
+            System.out.println("There is no programme in this course....");
+        }
+
+        //loop?
         Seperate.systemPause();
     }
 
     //generate programme operation
     public void generateReport() {
+
+        //clear screen and header
         Parts.header("Generate Report");
+
+        //report title 
+        System.out.println("Course ID   Course name                       Course description               Credit Hours   Year Commenced   Programme");
+        System.out.println("************************************************************************************************************************");
+
+        //iterator go through the list to print
+        Iterator<Course> it = c.getIterator();
+        while (it.hasNext()) {
+            Course cPrint = it.next();
+            System.out.printf("%9s   %-30s    %-40s %4d   %14d", cPrint.getCourseID(), cPrint.getCourseName(),
+                    cPrint.getCourseDescription(), cPrint.getCourseCreditHours(), cPrint.getCourseYearCommenced(), cPrint.getProgrammeID());
+            // Get the list of programme IDs
+            ListInterface<String> programmeID = cPrint.getProgrammeID();
+
+            if (programmeID == null || programmeID.isEmpty()) {
+                System.out.print(""); // Print spaces
+            } else {
+                // Iterate through the programme IDs
+                for (int i = 1; i <= programmeID.getNumberOfEntries(); i++) {
+                    if (i == 1) {
+                        System.out.printf("   %-5s\n", cPrint.getProgrammeID().getEntry(i));
+                    } else {
+                        System.out.printf("      %108s\n", cPrint.getProgrammeID().getEntry(i));
+                    }
+                }
+                System.out.println("------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("Total of Programme (s) : " + programmeID.getNumberOfEntries());
+            }
+            System.out.println("\n");
+        }
 
         Seperate.systemPause();
     }
