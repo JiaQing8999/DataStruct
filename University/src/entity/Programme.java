@@ -16,24 +16,28 @@ public class Programme {
 
     public Programme() {
     }
-
+    
+    // search and remove programme by id
     public Programme(String progCode) {
         this.progCode = progCode;
     }
-
+    
+    // add programme
     public Programme(String progCode, String progName, int progYear, int progSem) {
         this.progCode = progCode;
         this.progName = progName;
         this.progYear = progYear;
         this.progSem = progSem;
     }
-
+    
+    // list tutorial belong to this programme
     public Programme(String progCode, int progYear, int progSem) {
         this.progCode = progCode;
         this.progYear = progYear;
         this.progSem = progSem;
     }
-
+    
+    // list all the things
     public Programme(String progCode, String progName, int progYear, int progSem, String[][] tutorialGroup) {
         this.progCode = progCode;
         this.progName = progName;
