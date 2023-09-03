@@ -9,44 +9,24 @@ import java.util.Objects;
  *
  * @author Khor Zhi Ying
  */
-public class Programme {
+public class Programme implements Comparable<Programme>{
 
     private String progCode;
     private String progName;
-    private int progYear;
-    private int progSem;
-    private SortedListInterface<Integer> tutorialGroup = new SortedLinkedList<>();
+    private int progDurationYear;
+    private SortedListInterface<String> tutorialGroup = new SortedLinkedList<>();
 
     public Programme() {
     }
 
-    // search and remove programme by id
     public Programme(String progCode) {
         this.progCode = progCode;
     }
 
-    // add programme
-    public Programme(String progCode, String progName, int progYear, int progSem) {
+    public Programme(String progCode, String progName, int progDurationYear) {
         this.progCode = progCode;
         this.progName = progName;
-        this.progYear = progYear;
-        this.progSem = progSem;
-    }
-
-    // list tutorial belong to this programme
-    public Programme(String progCode, int progYear, int progSem) {
-        this.progCode = progCode;
-        this.progYear = progYear;
-        this.progSem = progSem;
-    }
-
-    // list all the things
-    public Programme(String progCode, String progName, int progYear, int progSem, SortedListInterface<Integer> tutorialGroup) {
-        this.progCode = progCode;
-        this.progName = progName;
-        this.progYear = progYear;
-        this.progSem = progSem;
-        this.tutorialGroup = tutorialGroup;
+        this.progDurationYear = progDurationYear;
     }
 
     public String getProgCode() {
@@ -65,30 +45,22 @@ public class Programme {
         this.progName = progName;
     }
 
-    public int getProgYear() {
-        return progYear;
+    public int getProgDurationYear() {
+        return progDurationYear;
     }
 
-    public void setProgYear(int progYear) {
-        this.progYear = progYear;
+    public void setProgDurationYear(int progDurationYear) {
+        this.progDurationYear = progDurationYear;
     }
 
-    public int getProgSem() {
-        return progSem;
-    }
-
-    public void setProgSem(int progSem) {
-        this.progSem = progSem;
-    }
-
-    public SortedListInterface<Integer> getTutorialGroup() {
+    public SortedListInterface<String> getTutorialGroup() {
         return tutorialGroup;
     }
 
-    public void setTutorialGroup(SortedListInterface<Integer> tutorialGroup) {
+    public void setTutorialGroup(SortedListInterface<String> tutorialGroup) {
         this.tutorialGroup = tutorialGroup;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -106,13 +78,10 @@ public class Programme {
 
     @Override
     public String toString() {
-        String str = "Programme Name: " + progName + "\n"
-                + "Programme Code: " + progCode + "\n"
-                + "Programme Year: " + progYear + "\n"
-                + "Programme Sem: " + progSem + "\n\n";
-        for (int i = 0; i < tutorialGroup.getNumberOfEntries(); i++) {
-            str += "Group " + tutorialGroup.getEntry(i) + " ";
-        }
+        String str = "Programme Code: " + progCode + "\n"
+                + "Programme Name: " + progName + "\n"
+                + "Programme Duration Year: " + progDurationYear;
+        
         return "\b" + str;
     }
 
@@ -121,14 +90,13 @@ public class Programme {
 
         p.setProgCode("RSW");
         p.setProgName("Bachelor Degree of Software Enginnering");
-        p.setProgYear(2);
-        p.setProgSem(1);
-        
-        p.tutorialGroup.add(24);
-        p.tutorialGroup.add(22);
-        p.tutorialGroup.add(20);
 
         System.out.println(p.toString());
+    }
+
+    @Override
+    public int compareTo(Programme o) {
+        return this.compareTo(o);
     }
 
 }

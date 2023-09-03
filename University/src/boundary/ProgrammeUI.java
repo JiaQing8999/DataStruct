@@ -45,6 +45,22 @@ public class ProgrammeUI {
 
         return name;
     }
+    
+    public int inputProgDurationYear() {
+        int year = 0;
+
+        do {
+            year = Validate.intInput("Enter programme duration year (1-3) : ",
+                    "Programme duration year cannot be null and only accept number.");
+
+            if (year < 1 || year > 3) {
+                System.out.println("Invalid programme duration year! Please enter 1-3 only.");
+            }
+
+        } while (year < 1 || year > 3);
+
+        return year;
+    }
 
     public int inputProgYear() {
         int year = 0;
