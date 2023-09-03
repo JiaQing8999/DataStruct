@@ -1,6 +1,6 @@
-
 package entity;
 
+import java.util.Objects;
 
 /**
  *
@@ -75,29 +75,34 @@ public class Programme {
     public void setTutorialGroup(String[][] tutorialGroup) {
         this.tutorialGroup = tutorialGroup;
     }
-    
+
 //    @Override
 //    public int hashCode() {
 //        int hash = 7;
 //        hash = 71 * hash + Objects.hashCode(this.progCode);
 //        return hash;
 //    }
-
+    
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }else if (this == obj) {
+        if (this == obj) {
             return true;
         }
-        return false;
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Programme other = (Programme) obj;
+        return Objects.equals(this.progCode, other.progCode);
     }
 
     @Override
     public String toString() {
         String str = progCode + progName + progYear + progSem;
-        
+
         return str;
     }
-    
+
 }
