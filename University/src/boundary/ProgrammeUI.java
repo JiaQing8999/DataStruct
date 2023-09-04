@@ -12,6 +12,7 @@ public class ProgrammeUI {
         String[] menuOptions = {
             "Add new programme",
             "Remove programme",
+            "Edit programme details",
             "Find programme",
             "List all programme",
             "Add tutorial group to a programme",

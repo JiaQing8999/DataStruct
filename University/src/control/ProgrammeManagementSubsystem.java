@@ -38,7 +38,7 @@ public class ProgrammeManagementSubsystem {
                 case 3:
                     findProgramme();
                     break;
-                case 4:
+                case 5:
                     listAllProg();
                     break;
             }
@@ -76,15 +76,19 @@ public class ProgrammeManagementSubsystem {
                 System.out.println("No new programme added.");
             }
 
-            //Ask for continue
+            // ask for continue
             next = Validate.yesNoInput("Add another new programme? (Y)es/(N)o > ", "Invalid input! Please enter Y or N only.");
         } while (next == 'Y');
 
-        //write entire sorted list into file
+        // write entire sorted list into file
         ProgrammeDAO.writeProgToFile(fileName, progSortedList);
         System.out.println("\n\nSaving data...");
 
         Seperate.systemPause();
+    }
+    
+    public void editProgramme(){
+        
     }
 
     public void listAllProg() {
@@ -108,7 +112,7 @@ public class ProgrammeManagementSubsystem {
     }
 
     public void findProgramme() {
-        Programme prog = new Programme();
+        Programme prog;
         char next;
         
         do {
