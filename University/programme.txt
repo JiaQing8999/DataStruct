@@ -1,0 +1,6 @@
+DCS|Diploma in Computer Science|2
+DFT|Diploma in Information Technology|2
+DIS|Diploma in Information System|2
+RDS|Bachelor of Data Science|3
+RSD|Bachelor of Software Developement|3
+RSW|Bachelor of Software Engineering|3

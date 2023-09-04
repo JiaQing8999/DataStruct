@@ -61,6 +61,10 @@ public class Programme implements Comparable<Programme>{
         this.tutorialGroup = tutorialGroup;
     }
     
+    public String writeFileFormatData(){
+        return progCode + "|" + progName + "|" + progDurationYear;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -85,18 +89,9 @@ public class Programme implements Comparable<Programme>{
         return "\b" + str;
     }
 
-    public static void main(String[] args) {
-        Programme p = new Programme();
-
-        p.setProgCode("RSW");
-        p.setProgName("Bachelor Degree of Software Enginnering");
-
-        System.out.println(p.toString());
-    }
-
     @Override
     public int compareTo(Programme o) {
-        return this.compareTo(o);
+        return this.progCode.compareTo(o.progCode);
     }
 
 }
