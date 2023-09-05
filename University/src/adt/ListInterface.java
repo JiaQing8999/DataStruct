@@ -6,7 +6,7 @@ import java.util.Iterator;
  *
  * @author Lim Jia Qing
  * 
- * shared with sowyichin
+ * shared with Sow Yi Chin
  */
 public interface ListInterface<T> {
     

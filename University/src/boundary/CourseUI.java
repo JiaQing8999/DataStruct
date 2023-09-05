@@ -1,5 +1,5 @@
 /*
- * @author sowyichin
+ * @author Sow  Yi Chin
  */
 package boundary;
 
