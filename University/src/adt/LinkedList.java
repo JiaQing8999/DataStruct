@@ -132,7 +132,7 @@ public class LinkedList<T> implements ListInterface<T> {
         }
         return found;
     }
-
+    
     @Override
     public int getNumberOfEntries() {
         return numberOfEntries;
@@ -172,7 +172,7 @@ public class LinkedList<T> implements ListInterface<T> {
     public int indexOf(T anEntry) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+        
     private class LinkedListIterator implements Iterator<T> {
 
         private LinkedList<T>.Node currentNode;
