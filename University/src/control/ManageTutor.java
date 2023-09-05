@@ -297,42 +297,68 @@ public class ManageTutor {
     }
 
     private void listAllTutor() {
+        // List copy from the sorted List
+        ListInterface<Tutor> showList = new LinkedList<>();
+        Iterator<Tutor> iteratorSort = tutorSortedList.getIterator();
+        while (iteratorSort.hasNext()) {
+            showList.add(iteratorSort.next());
+        }
+
         Parts.header("List Tutors");
         Parts.sectionHeader("All Tutors");
-        if (tutorSortedList.isEmpty()) {
+        if (showList.isEmpty()) {
             System.out.println("No tutors found.");
+            Seperate.systemPause();
         } else {
-            int index = 1;
-            Iterator<Tutor> iterator = tutorSortedList.getIterator();
-            System.out.println(" No.  Tutor ID  Name                  Gender  IC            Contact Num  Faculty");
-            System.out.println("---------------------------------------------------------------------------------");
-            while (iterator.hasNext()) {
-                Tutor tutor = iterator.next();
-                String name = tutor.getName();
+            int category;
+            int orderBy = 1;
+            do {
+                Iterator<Tutor> iteratorShow = showList.getIterator();
 
-                // Split the name into multiple lines every 20 characters
-                String[] nameLines = splitNameIntoLines(name);
+                System.out.println(" No.  Tutor ID  Name                  Gender  IC            Contact Num  Faculty");
+                System.out.println("---------------------------------------------------------------------------------");
 
-                for (int i = 0; i < nameLines.length; i++) {
-                    System.out.printf("%4s  %-8s  %-20s    %-4s  %-12s  %-11s   %-4s%n",
-                            i == 0 ? String.valueOf(index) + "." : "",
-                            i == 0 ? tutor.getTutorID() : "",
-                            nameLines[i],
-                            i == 0 ? tutor.getGender() : "",
-                            i == 0 ? tutor.getIc() : "",
-                            i == 0 ? tutor.getContactNum() : "",
-                            i == 0 ? tutor.getFaculty() : ""
-                    );
+                int index = 1;
+                while (iteratorShow.hasNext()) {
+                    Tutor tutor = iteratorShow.next();
+                    String name = tutor.getName();
+
+                    // Split the name into multiple lines every 20 characters
+                    String[] nameLines = splitNameIntoLines(name);
+
+                    for (int i = 0; i < nameLines.length; i++) {
+                        System.out.printf("%4s  %-8s  %-20s    %-4s  %-12s  %-11s   %-4s%n",
+                                i == 0 ? String.valueOf(index) + "." : "",
+                                i == 0 ? tutor.getTutorID() : "",
+                                nameLines[i],
+                                i == 0 ? tutor.getGender() : "",
+                                i == 0 ? tutor.getIc() : "",
+                                i == 0 ? tutor.getContactNum() : "",
+                                i == 0 ? tutor.getFaculty() : ""
+                        );
+                    }
+                    index++;
                 }
-                index++;
-            }
-        }
-        Seperate.systemPause();
 
-        //Select the category to arrange
-        //Select asc / desc
-        //Update list
-        //Loop back
+                // Select the category to arrange
+                Parts.sectionHeader("Category to arrange");
+                category = Parts.menu(new String[]{"Tutor ID", "Name", "Gender", "Faculty"}, "Close");
+                if (category != 0) {
+                    // Update showList
+                    
+                    
+                    // Select asc / desc
+                    Parts.sectionHeader("Arrange by");
+                    orderBy = Parts.menu(new String[]{"Ascending", "Descending"}, "Close");
+
+                    if (orderBy != 0) {
+
+                    }
+                }
+            } while (!(category == 0 || orderBy == 0));
+        }
+
+        // Loop back
     }
 
     private String[] splitNameIntoLines(String name) {
@@ -346,7 +372,7 @@ public class ManageTutor {
             nameLines[i] = name.substring(startIndex, endIndex);
             startIndex = endIndex;
         }
-        
+
         return nameLines;
     }
 }

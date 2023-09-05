@@ -1,5 +1,5 @@
 /*
- * @author sowyichin
+ * @author Sow Yi Chin
  */
 package control;
 
@@ -78,13 +78,11 @@ public class CourseTest {
 
         do {
             //clear screen and header
-            Seperate.clearScreen();
             Parts.header("Add Course");
 
             //get input from user
             Course inputCourse = cui.inputProductDetails();
-            System.out.println("");
-            System.out.println("");
+            System.out.println("\n");
 
             //show the input and ask for confirmation
             System.out.println("Course ID   Course name                       Course description               Credit Hours   Year Commenced");
@@ -92,7 +90,6 @@ public class CourseTest {
             System.out.printf("%9s   %-30s    %-40s %4d   %14d", inputCourse.getCourseID(), inputCourse.getCourseName(),
                     inputCourse.getCourseDescription(), inputCourse.getCourseCreditHours(), inputCourse.getCourseYearCommenced());
             System.out.println("\n\n");
-
             char confirm = Validate.yesNoInput("Comfirm to add ? (Y)es/(N)o > ", "  Character input only.");
             if (confirm == 'Y' || confirm == 'y') {
                 if (c.add(inputCourse)) {
@@ -118,11 +115,11 @@ public class CourseTest {
             //clear screen and header
             Parts.header("Remove Course");
 
-            //iterator go through the list and print the list with no.
+            //print title
             System.out.println("No.  Course ID   Course name               ");
             System.out.println("*******************************************");
 
-            //iterator go through the list
+            //iterator go through the list and print the course list with no.
             Iterator<Course> it = c.getIterator();
             while (it.hasNext()) {
                 Course cPrint = it.next();
@@ -198,7 +195,6 @@ public class CourseTest {
         do {
             int index = 1;
             //clear screen and header
-            Seperate.clearScreen();
             Parts.header("Amend Course");
             System.out.println("No.  Course ID   Course name                       Course description");
             System.out.println("**********************************************************************");
@@ -285,11 +281,11 @@ public class CourseTest {
             //clear screen and header
             Parts.header("Add Programme to Course");
 
-            //iterator go through the list and print the list with no.
+            //ptint title
             System.out.println("No.  Course ID   Course name               ");
             System.out.println("***************************************************");
 
-            //iterator go through the list
+            //iterator go through the list and print the list with no.
             Iterator<Course> it = c.getIterator();
             while (it.hasNext()) {
                 Course cPrint = it.next();
@@ -386,7 +382,6 @@ public class CourseTest {
             System.out.println("There is no programme in this course....");
         }
 
-        //loop?
         Seperate.systemPause();
     }
 
@@ -394,7 +389,7 @@ public class CourseTest {
     public void generateReport() {
 
         //clear screen and header
-        Parts.header("Generate Report");
+        Parts.header("Generate Report (Course-Programme Report)");
 
         //report title 
         System.out.println("Course ID   Course name                       Course description               Credit Hours   Year Commenced   Programme");
@@ -406,13 +401,13 @@ public class CourseTest {
             Course cPrint = it.next();
             System.out.printf("%9s   %-30s    %-40s %4d   %14d", cPrint.getCourseID(), cPrint.getCourseName(),
                     cPrint.getCourseDescription(), cPrint.getCourseCreditHours(), cPrint.getCourseYearCommenced(), cPrint.getProgrammeID());
-            // Get the list of programme IDs
+            //get the list of programme id
             ListInterface<String> programmeID = cPrint.getProgrammeID();
 
             if (programmeID == null || programmeID.isEmpty()) {
                 System.out.print(""); // Print spaces
             } else {
-                // Iterate through the programme IDs
+                //iterate through the programme id list to print
                 for (int i = 1; i <= programmeID.getNumberOfEntries(); i++) {
                     if (i == 1) {
                         System.out.printf("   %-5s\n", cPrint.getProgrammeID().getEntry(i));
