@@ -107,7 +107,7 @@ public class TestTutorialGroup {
             //loop 
             cont = Validate.yesNoInput("Add another student? (Y)es/(N)o > ", "  Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        //system pause
+        
         TutorialGrpDAO.writeTutorialGrpToFile(fileName, bTree);
         Seperate.systemPause();
     }
@@ -145,7 +145,7 @@ public class TestTutorialGroup {
             //loop 
             cont = Validate.yesNoInput("Remove another student? (Y)es/(N)o > ", "  Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        //system pause
+        
         TutorialGrpDAO.writeTutorialGrpToFile(fileName, bTree);
         Seperate.systemPause();
 
@@ -184,7 +184,7 @@ public class TestTutorialGroup {
             //loop 
             cont = Validate.yesNoInput("Change another student's tutorial group? (Y)es/(N)o > ", "  Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        //system pause
+        
         TutorialGrpDAO.writeTutorialGrpToFile(fileName, bTree);
         Seperate.systemPause();
 
@@ -213,7 +213,7 @@ public class TestTutorialGroup {
             System.out.printf("The student is %sin group %d%n", found ? "" : "not ", searchTGroup);
             cont = Validate.yesNoInput("Continue to search another student? (Y)es/(N)o > ", "Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        //system pause
+        
         Seperate.systemPause();
     }
 
@@ -242,7 +242,7 @@ public class TestTutorialGroup {
 
             cont = Validate.yesNoInput("Continue to show a tutorial group's student? (Y)es/(N)o > ", "Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        //system pause
+        
         Seperate.systemPause();
     }
 
@@ -374,7 +374,7 @@ public class TestTutorialGroup {
         // the last student
         System.out.println("\nThe last student for this semester : \n" + bTree.getLargestValue());
         // the total of students
-        System.out.println("\nTotal students for this semester is " + calcTotalStudents() + "students");
+        System.out.println("\nTotal students for this semester is " + calcTotalStudents() + " students");
         // add how many students(list), delete how many student(list),searched how many students
         System.out.println("\nStudents added this time: " + numAdd);
         System.out.println("\nID      Student Name          Tutorial Group\n");
