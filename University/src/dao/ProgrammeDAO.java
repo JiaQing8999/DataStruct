@@ -25,13 +25,13 @@ public class ProgrammeDAO {
                 // Split the line into parts using the pipe "|" as a delimiter
                 String[] parts = line.split("\\|");
 
-                // Check if there are enough parts to create a Tutor object
+                // Check if there are enough parts to create object
                 if (parts.length >= 3) {
                     String progCode = parts[0];
                     String progName = parts[1];
                     int progDurationYear = Integer.parseInt(parts[2]);
 
-                    // Create a Tutor object and add it to the list
+                    // Create a object and add it to the list
                     Programme prog = new Programme(progCode, progName, progDurationYear);
                     progList.add(prog);
                 } else {
@@ -52,7 +52,7 @@ public class ProgrammeDAO {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
 
-            // Get an iterator for the tutorList
+            // Get an iterator for the list
             Iterator<Programme> iterator = progList.getIterator();
 
             while (iterator.hasNext()) {
@@ -60,7 +60,7 @@ public class ProgrammeDAO {
                 // Write data into file
                 String progData = prog.writeFileFormatData();
                 writer.write(progData);
-                writer.newLine(); // Add a newline after each tutor entry
+                writer.newLine(); // Add a newline after each entry
             }
 
             writer.close(); // Close the BufferedWriter

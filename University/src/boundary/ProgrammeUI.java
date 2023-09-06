@@ -12,8 +12,8 @@ public class ProgrammeUI {
         String[] menuOptions = {
             "Add new programme",
             "Remove programme",
-            "Edit programme details",
             "Find programme",
+            "Edit programme details",
             "List all programme",
             "Add tutorial group to a programme",
             "Remove tutorial group from a programme",
@@ -46,7 +46,7 @@ public class ProgrammeUI {
 
         return name;
     }
-    
+
     public int inputProgDurationYear() {
         int year = 0;
 
@@ -126,4 +126,10 @@ public class ProgrammeUI {
 
         return num;
     }
+
+    public int editField() {
+        String[] options = {"Programme code", "Programme name", "Programme duration year"};
+        return Parts.menu(options, "Cancel");
+    }
+
 }

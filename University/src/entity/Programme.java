@@ -82,9 +82,9 @@ public class Programme implements Comparable<Programme>{
 
     @Override
     public String toString() {
-        String str = "Programme Code    : " + progCode + "\n"
-                + "Programme Name   : " + progName + "\n"
-                + "Programme Duration Year: " + progDurationYear;
+        String str = "  Programme Code          : " + progCode + "\n"
+                + "  Programme Name          : " + progName + "\n"
+                + "  Programme Duration Year : " + progDurationYear;
         
         return "\b" + str;
     }
