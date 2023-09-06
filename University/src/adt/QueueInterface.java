@@ -1,1 +1,46 @@
-package adt;import java.util.Iterator;/** * * @author Lim Jia Qing */public interface QueueInterface<T> {    public Iterator<T> getIterator();    public void enqueue(T newEntry);    public T dequeue();    public T getFront();    public boolean isEmpty();    public void clear();}
+package adt;
+
+import java.util.Iterator;
+
+/**
+ *
+ * @author Phua Mei Kee, Lim Jia Qing
+ */
+public interface QueueInterface<T> {
+
+    public Iterator<T> getIterator();
+    /**
+     * * Task: Adds a new entry to the back of the queue.* * 
+     * @param newEntry an
+ object to be added
+     */
+    public void enqueue(T newEntry);
+
+    /**
+     * * Task: Removes and returns the entry at the front of the queue. * *
+     * @return either the object at the front of the queue or, if the queue is *
+     * empty before the operation, null
+     */
+    public T dequeue();
+
+    /**
+     * * Task: Retrieves the entry at the front of the queue.* * 
+     * @return either
+ the object at the front of the queue or, if the queue is * empty, null
+     * 
+     */
+    public T getFront();
+
+    /**
+     * * Task: Detects whether the queue is empty.* * 
+     * @return true if the queue
+ is empty, or false otherwise
+     * 
+     */
+    public boolean isEmpty();
+
+    /**
+     * * Task: Removes all entries from the queue.
+     */
+    public void clear();
+} // end QueueInterface
