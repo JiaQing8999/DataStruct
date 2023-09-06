@@ -1,8 +1,10 @@
 package boundary;
 
+import utility.Validate;
+
 /**
  *
- * @author meikee
+ * @author Phua Mei Kee
  */
 public class TutorialGroupUI {
 
@@ -17,6 +19,35 @@ public class TutorialGroupUI {
             "Filter tutorial groups",
             "Generate relevant reports"};
         Parts.header("Tutorial Group");
-        return Parts.menu(menuOptions, "Close");
+        return Parts.menu(menuOptions,"Close");
+    }
+
+    public int getFilterGroupMenuSelection() {
+        String[] menuSelection = {
+            "Tutorial groups which contains most students",
+            "Tutorial groups which contains least students"
+        };
+        Parts.header("Filter Tutorial Group Menu");
+        return Parts.menu( menuSelection,"Close");
+    }
+
+    public String inputStudentName() {
+        String name = Validate.stringNullCheckingInput("Enter Name : ", "Name cannot be empty.");
+        return name;
+    }
+
+    public int inputStudentId() {
+        int id = Validate.intInput("Enter id : ", "ID can be integer only.");
+        return id;
+    }
+
+    public int inputCurrentTutorialGroup() {
+        int tutorialGrp = Validate.intInput("Enter current tutorial group : ", "Tutorial group can be integer only.");
+        return tutorialGrp;
+    }
+
+    public int inputNewTutorialGroup() {
+        int tutorialGrp = Validate.intInput("Enter new tutorial group : ", "Tutorial group can be integer only.");
+        return tutorialGrp;
     }
 }
