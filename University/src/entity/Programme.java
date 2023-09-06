@@ -1,7 +1,6 @@
 package entity;
 
-import adt.ListInterface;
-import adt.SortedLinkedList;
+import adt.SortedArrayList;
 import adt.SortedListInterface;
 import java.util.Objects;
 
@@ -14,13 +13,9 @@ public class Programme implements Comparable<Programme>{
     private String progCode;
     private String progName;
     private int progDurationYear;
-    private SortedListInterface<String> tutorialGroup = new SortedLinkedList<>();
+    private SortedListInterface<String> tutorialGroup = new SortedArrayList<>();
 
     public Programme() {
-    }
-
-    public Programme(String progCode) {
-        this.progCode = progCode;
     }
 
     public Programme(String progCode, String progName, int progDurationYear) {
@@ -28,7 +23,7 @@ public class Programme implements Comparable<Programme>{
         this.progName = progName;
         this.progDurationYear = progDurationYear;
     }
-
+    
     public String getProgCode() {
         return progCode;
     }
