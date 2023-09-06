@@ -63,38 +63,6 @@ public class ProgrammeUI {
         return year;
     }
 
-    public int inputProgYear() {
-        int year = 0;
-
-        do {
-            year = Validate.intInput("Enter programme year (1-3) : ",
-                    "Programme year cannot be null and only accept number.");
-
-            if (year < 1 || year > 3) {
-                System.out.println("Invalid programme year! Please enter 1-3 only.");
-            }
-
-        } while (year < 1 || year > 3);
-
-        return year;
-    }
-
-    public int inputProgSem() {
-        int sem = 0;
-
-        do {
-            sem = Validate.intInput("Enter programme sem (1-3) : ",
-                    "Programme sem cannot be null and only accept number.");
-
-            if (sem < 1 || sem > 3) {
-                System.out.println("Invalid programme sem! Please enter 1-3 only.");
-            }
-
-        } while (sem < 1 || sem > 3);
-
-        return sem;
-    }
-
     public int inputTutorialGroup() {
         int group = 0;
 
@@ -109,22 +77,6 @@ public class ProgrammeUI {
         } while (group < 1);
 
         return group;
-    }
-
-    public int inputNumPaxInTutorialGroup() {
-        int num = 0;
-
-        do {
-            num = Validate.intInput("Number of student in this tutorial group : ",
-                    "Number of student cannot be null and only accept number.");
-
-            if (num < 0) {
-                System.out.println("Invalid number of student! Number of student cannot be negative. Please enter again.");
-            }
-
-        } while (num < 0);
-
-        return num;
     }
 
     public int editField() {

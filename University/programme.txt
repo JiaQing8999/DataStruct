@@ -1,4 +1,3 @@
-DCS|Diploma in Computer Science|2
 DFT|Diploma in Information Technology|2
 DIS|Diploma in Information System|2
 RDS|Bachelor of Data Science|3
