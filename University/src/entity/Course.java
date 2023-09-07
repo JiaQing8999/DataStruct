@@ -7,7 +7,7 @@ import adt.DoublyLinkedList;
 import adt.ListInterface;
 import java.util.Objects;
 
-public class Course {
+public class Course implements Comparable<Course> {
 
     private String courseID;
     private String courseName;
@@ -112,5 +112,11 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" + "courseID=" + courseID + ", courseName=" + courseName + ", courseDescription=" + courseDescription + ", courseCreditHours=" + courseCreditHours + ", courseYearCommenced=" + courseYearCommenced + ", programmeID=" + programmeID + '}';
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        // Compare the tutorIDs of the current Tutor and the other Tutor
+        return this.courseID.compareTo(o.courseID);
     }
 }
