@@ -39,33 +39,6 @@ public class LinkedList<T> implements ListInterface<T> {
         return true;
     }
 
-    @Override
-    public boolean add(int newPosition, T newEntry) { // OutOfMemoryError possible
-        boolean isSuccessful = true;
-
-        if ((newPosition >= 1) && (newPosition <= numberOfEntries + 1)) {
-            Node newNode = new Node(newEntry);
-
-            if (isEmpty() || (newPosition == 1)) { // case 1: add to beginning of list
-                newNode.next = firstNode;
-                firstNode = newNode;
-            } else {								// case 2: list is not empty and newPosition > 1
-                Node nodeBefore = firstNode;
-                for (int i = 1; i < newPosition - 1; ++i) {
-                    nodeBefore = nodeBefore.next;		// advance nodeBefore to its next node
-                }
-
-                newNode.next = nodeBefore.next;         // make new node point to current node at newPosition
-                nodeBefore.next = newNode;		// make the node before point to the new node
-            }
-
-            numberOfEntries++;
-        } else {
-            isSuccessful = false;
-        }
-
-        return isSuccessful;
-    }
 
     @Override
     public boolean remove(int givenPosition) {
