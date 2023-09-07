@@ -78,7 +78,8 @@ public class CourseTest {
         do {
             //clear screen and header
             Parts.header("Add Course");
-
+            
+            System.out.println("*Note : The last character if course id refer to credoy hours");
             //get input from user
             Course inputCourse = cui.inputProductDetails();
             System.out.println("\n");
@@ -159,7 +160,7 @@ public class CourseTest {
             Parts.header("Find Course");
 
             //ask the user for enter course id
-            String searchID = cui.inputCourseName();
+            String searchID = cui.inputCourseID();
             Course searchCourse = new Course(searchID);
 
             //check the course id in the list or not, if yes search the list and display else show error msg
