@@ -12,13 +12,13 @@ import java.util.Scanner;
 import utility.Seperate;
 import utility.Validate;
 
-public class CourseTest {
+public class CourseDriver {
 
     CourseUI cui = new CourseUI();
     private ListInterface<Course> c = new DoublyLinkedList<>();
     Scanner s = new Scanner(System.in);
 
-    public CourseTest() {
+    public CourseDriver() {
         c.add(new Course("AAMS3653", "Discrete Math", "Study mathematical structures", 3, 2023, null));
         c.add(new Course("AACS2383", "Data Mining", "Study data exploring", 3, 2023, null));
         c.add(new Course("BAIT2034", "Computer Network", "Study fundamental of network", 4, 2023, null));
@@ -28,7 +28,7 @@ public class CourseTest {
     }
 
     public static void main(String[] args) {
-        CourseTest ct = new CourseTest();
+        CourseDriver ct = new CourseDriver();
         ct.runCourseTest();
     }
 
