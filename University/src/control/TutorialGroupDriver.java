@@ -130,15 +130,15 @@ public class TutorialGroupDriver {
             System.out.println(bTree.getEntry(deleteStudent));
             System.out.println("\n\n");
 
-            char confirm = Validate.yesNoInput("Comfirm to delete this student ? (Y)es/(N)o > ", "  Character input only.");
-            if (confirm == 'Y' || confirm == 'y') {
-                if (bTree.contains(deleteStudent)) {
+            if (bTree.contains(deleteStudent)) {
+                char confirm = Validate.yesNoInput("Comfirm to delete this student ? (Y)es/(N)o > ", "  Character input only.");
+                if (confirm == 'Y' || confirm == 'y') {
                     bTree.remove(deleteStudent);
                     numDel++;
                     System.out.println("The student is deleted.\n");
-                } else {
-                    System.out.println("This student not found.\n");
                 }
+            } else {
+                System.out.println("This student not found.\n");
             }
 
             //loop 
@@ -369,7 +369,7 @@ public class TutorialGroupDriver {
         Seperate.clearScreen();
         Parts.header("Reports");
         // the first students
-        System.out.println("The first student for this semester : \n" );
+        System.out.println("The first student for this semester : \n");
         System.out.println("\nID      Student Name          Tutorial Group\n");
         System.out.println("------------------------------------------------\n");
         System.out.println(bTree.getSmallestValue());
