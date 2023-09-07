@@ -5,8 +5,9 @@ import java.util.Iterator;
 /**
  *
  * @author Lim Jia Qing
+ * @param <T>
  */
-public class LinkedList<T> implements ListInterface<T> {
+public class LinkedList<T extends Comparable<T>> implements ListInterface<T> {
 
     private Node firstNode;             // reference to first node
     private int numberOfEntries;  	// number of entries in list
@@ -39,7 +40,6 @@ public class LinkedList<T> implements ListInterface<T> {
         return true;
     }
 
-
     @Override
     public boolean remove(int givenPosition) {
         if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
@@ -56,6 +56,43 @@ public class LinkedList<T> implements ListInterface<T> {
             return true; // Successfully removed the entry
         } else {
             return false; // Removal failed (invalid position)
+        }
+    }
+
+    @Override
+    public T remove(T anEntry) {
+        // Check if the list is empty
+        if (isEmpty()) {
+            return null; // List is empty, nothing to remove
+        }
+
+        Node nodeBefore = null;
+        Node currentNode = firstNode;
+
+        // Iterate through the list while comparing each element's value
+        // to the target 'anEntry' using the 'compareTo' method.
+        while (currentNode != null && anEntry.compareTo(currentNode.data) > 0) {
+            nodeBefore = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        // Check if the target entry is found
+        if (currentNode != null && currentNode.data.equals(anEntry)) {
+            // Entry found, remove it
+            if (nodeBefore == null) {
+                // Entry is at the beginning of the list
+                firstNode = currentNode.next;
+            } else {
+                // Entry is in the middle or at the end
+                nodeBefore.next = currentNode.next;
+            }
+            numberOfEntries--;
+
+            // Return the removed entry's data
+            return currentNode.data;
+        } else {
+            // Entry not found
+            return null;
         }
     }
 
@@ -105,7 +142,7 @@ public class LinkedList<T> implements ListInterface<T> {
         }
         return found;
     }
-    
+
     @Override
     public int getNumberOfEntries() {
         return numberOfEntries;
@@ -118,11 +155,6 @@ public class LinkedList<T> implements ListInterface<T> {
         result = numberOfEntries == 0;
 
         return result;
-    }
-
-    @Override
-    public boolean isFull() {
-        return false;
     }
 
     @Override
@@ -145,7 +177,7 @@ public class LinkedList<T> implements ListInterface<T> {
     public int indexOf(T anEntry) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-        
+
     private class LinkedListIterator implements Iterator<T> {
 
         private LinkedList<T>.Node currentNode;
