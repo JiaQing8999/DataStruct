@@ -5,9 +5,9 @@ import java.util.Iterator;
 /**
  *
  * @author Khor Zhi Ying
- * 
+ *
  */
-public class SortedArrayList<T extends Comparable<T>> implements SortedListInterface<T> {
+public class SortedArrayList<T extends Comparable<T>> implements ListInterface<T> {
 
     private T[] array;
     private int numberOfEntries;
@@ -133,6 +133,22 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
 
     @Override
     public Iterator<T> getIterator() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    //---------------Method not used---------------
+    @Override
+    public boolean remove(int givenPosition) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean replace(int givenPosition, T newEntry) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int indexOf(T anEntry) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

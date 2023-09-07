@@ -16,7 +16,7 @@ import utility.*;
 public class ManageTutor {
 
     private TutorManagementUI tutorUI = new TutorManagementUI();
-    private SortedListInterface<Tutor> tutorSortedList = new SortedLinkedList<>();
+    private ListInterface<Tutor> tutorSortedList = new SortedLinkedList<>();
 
     private final String fileName = "tutor.txt";
 
@@ -148,7 +148,7 @@ public class ManageTutor {
             } else if (searchOption == 2) {
                 searchCriteria = Validate.stringInput("Enter the search name: ", "  Invalid input. Please enter a name.");
             }
-            SortedListInterface<Tutor> searchResults = new SortedLinkedList<>();
+            ListInterface<Tutor> searchResults = new SortedLinkedList<>();
 
             for (int i = 1; i <= tutorSortedList.getNumberOfEntries(); i++) {
                 Tutor currentTutor = tutorSortedList.getEntry(i);
@@ -191,7 +191,7 @@ public class ManageTutor {
         }
     }
 
-    private boolean removeTutor(SortedListInterface<Tutor> searchResults) {
+    private boolean removeTutor(ListInterface<Tutor> searchResults) {
         String[] deleteOptions = new String[searchResults.getNumberOfEntries()];
         Iterator<Tutor> tutorIterator = searchResults.getIterator();
         int index = 0;
@@ -221,7 +221,7 @@ public class ManageTutor {
         return changePerformed;
     }
 
-    private void displayTutors(SortedListInterface<Tutor> searchResults) {
+    private void displayTutors(ListInterface<Tutor> searchResults) {
         Iterator<Tutor> iterator = searchResults.getIterator();
         int resultIndex = 1;
 
@@ -234,7 +234,7 @@ public class ManageTutor {
         }
     }
 
-    private boolean editTutor(SortedListInterface<Tutor> searchResults) {
+    private boolean editTutor(ListInterface<Tutor> searchResults) {
         String[] editOptions = new String[searchResults.getNumberOfEntries()];
         Iterator<Tutor> tutorIterator = searchResults.getIterator();
         int index = 0;
@@ -266,7 +266,7 @@ public class ManageTutor {
             Parts.header("Edit Tutor Details");
 
             //Print out tutor details
-            SortedListInterface<Tutor> tutorDisplay = new SortedLinkedList<>();
+            ListInterface<Tutor> tutorDisplay = new SortedLinkedList<>();
             tutorDisplay.add(selectedTutor);
             displayTutors(tutorDisplay);
 

@@ -125,7 +125,7 @@ public class Tutor implements Comparable<Tutor> {
         return this.faculty.compareTo(otherTutor.getFaculty());
     }
 
-    public String generateNewTutorID(SortedListInterface<Tutor> tutorSortedList) {
+    public String generateNewTutorID(ListInterface<Tutor> tutorSortedList) {
         // Initialize the new ID
         String newID = null;
 
