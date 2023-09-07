@@ -21,17 +21,21 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
 
         Node newNode = new Node(newEntry);  //create a new node
 
-        if (isEmpty()) {
-            head = tail = newNode;  //set head & tail point to new node
-            newNode.prev = newNode.next = null;
-        } else {    //add the new node to the end of list
-            newNode.prev = tail;    //set new node prev point to tail
-            tail.next = newNode;    //set tail next point to new node
-            tail = newNode;     //update the tail to new node
-            tail.next = null;
+        if (newEntry != null) {
+            if (isEmpty()) {
+                head = tail = newNode;  //set head & tail point to new node
+                newNode.prev = newNode.next = null;
+            } else {    //add the new node to the end of list
+                newNode.prev = tail;    //set new node prev point to tail
+                tail.next = newNode;    //set tail next point to new node
+                tail = newNode;     //update the tail to new node
+                tail.next = null;
+            }
+            numberOfEntries++;
+            return true;
+        } else {
+            return false;
         }
-        numberOfEntries++;
-        return true;
     }
 
     @Override
@@ -66,7 +70,51 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
             return true;
         }
     }
-    
+
+    @Override
+    public T remove(T anEntry) {
+        // Handle the case where the list is empty
+        if (isEmpty()) {
+            return null; // List is empty, no entry to remove
+        }
+
+        // Initialize a currentNode to traverse the list
+        Node currentNode = head;
+
+        // Traverse the list to find the first occurrence of the given entry
+        while (currentNode != null) {
+            if (anEntry.equals(currentNode.data)) {
+                // Found the entry, now remove it
+                if (currentNode == head) {
+                    // If the entry is at the head, update the head
+                    head = currentNode.next;
+                    if (head != null) {
+                        head.prev = null;
+                    } else {
+                        // If there's no more elements, update tail as well
+                        tail = null;
+                    }
+                } else if (currentNode == tail) {
+                    // If the entry is at the tail, update the tail
+                    tail = tail.prev;
+                    tail.next = null;
+                } else {
+                    // If the entry is in the middle of the list
+                    currentNode.prev.next = currentNode.next;
+                    currentNode.next.prev = currentNode.prev;
+                }
+
+                // Decrement the number of entries and return the removed entry
+                numberOfEntries--;
+                return currentNode.data;
+            }
+            currentNode = currentNode.next;
+        }
+
+        // The entry was not found in the list
+        return null;
+    }
+
     @Override
     public boolean replace(int givenPosition, T newEntry) {
 
@@ -200,11 +248,5 @@ public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<
             }
             return currentElement;
         }
-    }
-    
-    //---------------Method not used---------------
-    @Override
-    public T remove(T anEntry) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
