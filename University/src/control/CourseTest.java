@@ -389,7 +389,11 @@ public class CourseTest {
     public void generateReport() {
 
         //clear screen and header
-        Parts.header("Generate Report (Course-Programme Report)");
+        Parts.header("Generate Report");
+
+        System.out.println("\t\t\t\t\t\tCourse-Program Report");
+        System.out.println("\t\t\t\t\t\t*********************");
+        System.out.println("\n");
 
         //report title 
         System.out.println("Course ID   Course name                       Course description               Credit Hours   Year Commenced   Programme");
@@ -405,7 +409,9 @@ public class CourseTest {
             ListInterface<String> programmeID = cPrint.getProgrammeID();
 
             if (programmeID == null || programmeID.isEmpty()) {
-                System.out.print(""); // Print spaces
+                System.out.print("\n"); // Print spaces
+                System.out.println("------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("Total of Programme (s) : 0");
             } else {
                 //iterate through the programme id list to print
                 for (int i = 1; i <= programmeID.getNumberOfEntries(); i++) {
