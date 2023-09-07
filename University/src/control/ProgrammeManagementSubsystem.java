@@ -61,7 +61,6 @@ public class ProgrammeManagementSubsystem {
         // String code;
 
         do {
-            Seperate.clearScreen();
             Parts.header("Add new Programme");
 
             newProg.setProgCode(progUI.inputProgCode());
@@ -206,7 +205,7 @@ public class ProgrammeManagementSubsystem {
         Parts.sectionHeader("Programme List");
         if (!progSortedList.isEmpty()) {
             Iterator<Programme> it = progSortedList.getIterator();
-            System.out.println("");
+            System.out.println("  -------------------------------------------------------");
             System.out.println("   Code  Name                              Duration Year");
             System.out.println("  -------------------------------------------------------");
             while (it.hasNext()) {
@@ -240,6 +239,10 @@ public class ProgrammeManagementSubsystem {
             System.out.println("");
             next = Validate.yesNoInput("Continue to search another programme? (Y)es/(N)o > ", "  Character input only.");
         } while (next == 'Y');
+    }
+    
+    public void listAllTutorialGroup(){
+        
     }
 
     public Programme searchResult(String code) {

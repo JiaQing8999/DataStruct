@@ -63,11 +63,11 @@ public class ProgrammeUI {
         return year;
     }
 
-    public int inputTutorialGroup() {
+    public String inputTutorialGroup(String operation) {
         int group = 0;
 
         do {
-            group = Validate.intInput("Enter tutorial group : Group ",
+            group = Validate.intInput("\nEnter tutorial group to " + operation + " (eg. G1) : G",
                     "Tutorial group cannot be null.");
 
             if (group < 1) {
@@ -76,7 +76,7 @@ public class ProgrammeUI {
 
         } while (group < 1);
 
-        return group;
+        return "G" + group;
     }
 
     public int editField() {

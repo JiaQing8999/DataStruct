@@ -11,7 +11,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
 
     private T[] array;
     private int numberOfEntries;
-    private static final int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 100;
 
     public SortedArrayList() {
         this(DEFAULT_CAPACITY);
