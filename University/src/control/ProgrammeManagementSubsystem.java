@@ -25,10 +25,10 @@ public class ProgrammeManagementSubsystem {
 
     public static void main(String[] args) {
         ProgrammeManagementSubsystem p = new ProgrammeManagementSubsystem();
-        p.ProgMenu();
+        p.progMenu();
     }
 
-    public void ProgMenu() {
+    public void progMenu() {
         int selection;
 
         do {
@@ -49,6 +49,15 @@ public class ProgrammeManagementSubsystem {
                 case 5:
                     listAllProg();
                     break;
+                case 6:
+                    addTutorialGroupToProgramme();
+                    break;
+                case 7:
+                    removeTutorialGroupFromProgramme();
+                    break;
+                case 8:
+                    listAllTutorialGroupsForProgramme();
+                    break;
             }
 
         } while (selection != 0);
@@ -61,6 +70,7 @@ public class ProgrammeManagementSubsystem {
         // String code;
 
         do {
+            Seperate.clearScreen();
             Parts.header("Add new Programme");
 
             newProg.setProgCode(progUI.inputProgCode());
@@ -240,8 +250,85 @@ public class ProgrammeManagementSubsystem {
             next = Validate.yesNoInput("Continue to search another programme? (Y)es/(N)o > ", "  Character input only.");
         } while (next == 'Y');
     }
+
+    public void listAllTutorialGroupsForProgramme() {
+        Parts.header("List All Tutorial Group For A Programme");
+        String code = progUI.inputProgCode();
+        Programme prog = searchResult(code);
+
+        if (prog != null) {
+            SortedListInterface<String> tutorialGroupList = prog.getTutorialGroup();
+
+            if (!tutorialGroupList.isEmpty()) {
+                System.out.println("");
+                Parts.sectionHeader("Tutorial Groups for Programme " + prog.getProgCode());
+                for (int i = 0; i < tutorialGroupList.getNumberOfEntries(); i++) {
+                    System.out.println("  " + tutorialGroupList.getEntry(i));
+                }
+            } else {
+                System.out.println("\nNo tutorial groups found for this programme.");
+            }
+        } else {
+            System.out.println("\nNo such programme found.");
+        }
+
+        System.out.println("");
+        Seperate.systemPause();
+    }
+
+    public void addTutorialGroupToProgramme() {
+        Parts.header("Add Tutorial Group To A Programme");
+        String code = progUI.inputProgCode();
+        Programme prog = searchResult(code);
+
+        if (prog != null) {
+            Parts.sectionHeader("Existing Details " + prog.getProgCode());
+            System.out.println(prog.toStringForTutorial());
+            String tutorialGroup = progUI.inputTutorialGroup("add");
+
+            if (!prog.getTutorialGroup().contains(tutorialGroup)) {
+                prog.getTutorialGroup().add(tutorialGroup);
+                ProgrammeDAO.writeProgToFile(fileName, progSortedList);
+                System.out.println("\nTutorial group added successfully!\n");
+            } else {
+                System.out.println("\nTutorial group already exists for this programme.\n");
+            }
+        } else {
+            System.out.println("\nNo such programme found.\n");
+        }
+
+        Seperate.systemPause();
+    }
+
+    public void removeTutorialGroupFromProgramme() {
+        Parts.header("Remove Tutorial Group From A Programme");
+        String code = progUI.inputProgCode();
+        Programme prog = searchResult(code);
+
+        if (prog != null) {
+            Parts.sectionHeader("Existing Details " + prog.getProgCode());
+            System.out.println(prog.toStringForTutorial());
+            String tutorialGroup = progUI.inputTutorialGroup("remove");
+
+            if (prog.getTutorialGroup().contains(tutorialGroup)) {
+                prog.getTutorialGroup().remove(tutorialGroup);
+                ProgrammeDAO.writeProgToFile(fileName, progSortedList);
+                System.out.println("\nTutorial group removed successfully!\n");
+            } else {
+                System.out.println("\nTutorial group not found for this programme.\n");
+            }
+        } else {
+            System.out.println("\nNo such programme found.\n");
+        }
+
+        Seperate.systemPause();
+    }
     
-    public void listAllTutorialGroup(){
+    public void generateReport(){
+        Parts.header("Generate Report");
+        System.out.println("");
+        Parts.sectionHeader("Summary");
+        
         
     }
 

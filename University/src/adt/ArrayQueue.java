@@ -84,7 +84,7 @@ public class ArrayQueue<T> implements QueueInterface<T> {
     public Iterator<T> getIterator() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-  
- 
+
+   
 
 }

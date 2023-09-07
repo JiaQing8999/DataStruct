@@ -4,6 +4,8 @@ import adt.*;
 import boundary.*;
 import dao.*;
 import entity.Tutor;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import utility.*;
 
@@ -15,7 +17,13 @@ public class ManageTutor {
 
     private TutorManagementUI tutorUI = new TutorManagementUI();
     private SortedListInterface<Tutor> tutorSortedList = new SortedLinkedList<>();
+
     private final String fileName = "tutor.txt";
+
+    int listCategory = 1;
+    int listOrderBy = 1;
+    String[] listSortedCategory = new String[]{"Tutor ID", "Name", "Gender", "Faculty"};
+    String[] listOrderCatgory = new String[]{"Ascending", "Descending"};
 
     public ManageTutor() {
         tutorSortedList = TutorDAO.readTutorsFromFile(fileName);
@@ -47,7 +55,7 @@ public class ManageTutor {
                     break;
                 case 4:
                     //Tutors list
-                    listAllTutor();
+                    listAllTutor(false);
                     break;
                 case 5:
                     //Remove tutor
@@ -55,6 +63,7 @@ public class ManageTutor {
                     break;
                 case 6:
                     //Generate reports
+                    tutorReport();
                     break;
                 case 0:
                     System.out.println("Saving Data...");
@@ -65,7 +74,7 @@ public class ManageTutor {
         } while (selection != 0);
     }
 
-    public void addNewTutor() {
+    private void addNewTutor() {
 
         Parts.header("Add A Tutor");
 
@@ -106,7 +115,7 @@ public class ManageTutor {
         Seperate.systemPause();
     }
 
-    public void findTutor(String operation) {
+    private void findTutor(String operation) {
         int searchOption;
         boolean changePerformed = false;
 
@@ -296,71 +305,43 @@ public class ManageTutor {
         return changePerformed;
     }
 
-    private void listAllTutor() {
-        // List copy from the sorted List
+    private void listAllTutor(boolean isReport) {
         ListInterface<Tutor> showList = new LinkedList<>();
+        // List copy from the sorted List
         Iterator<Tutor> iteratorSort = tutorSortedList.getIterator();
         while (iteratorSort.hasNext()) {
             showList.add(iteratorSort.next());
         }
 
-        Parts.header("List Tutors");
-        Parts.sectionHeader("All Tutors");
         if (showList.isEmpty()) {
+            Parts.header("List Tutors");
+            Parts.sectionHeader("All Tutors");
             System.out.println("No tutors found.");
             Seperate.systemPause();
         } else {
-            int category;
-            int orderBy = 1;
-            do {
-                Iterator<Tutor> iteratorShow = showList.getIterator();
-
-                System.out.println(" No.  Tutor ID  Name                  Gender  IC            Contact Num  Faculty");
-                System.out.println("---------------------------------------------------------------------------------");
-
-                int index = 1;
-                while (iteratorShow.hasNext()) {
-                    Tutor tutor = iteratorShow.next();
-                    String name = tutor.getName();
-
-                    // Split the name into multiple lines every 20 characters
-                    String[] nameLines = splitNameIntoLines(name);
-
-                    for (int i = 0; i < nameLines.length; i++) {
-                        System.out.printf("%4s  %-8s  %-20s    %-4s  %-12s  %-11s   %-4s%n",
-                                i == 0 ? String.valueOf(index) + "." : "",
-                                i == 0 ? tutor.getTutorID() : "",
-                                nameLines[i],
-                                i == 0 ? tutor.getGender() : "",
-                                i == 0 ? tutor.getIc() : "",
-                                i == 0 ? tutor.getContactNum() : "",
-                                i == 0 ? tutor.getFaculty() : ""
-                        );
-                    }
-                    index++;
-                }
-
-                // Select the category to arrange
-                Parts.sectionHeader("Category to arrange");
-                category = Parts.menu(new String[]{"Tutor ID", "Name", "Gender", "Faculty"}, "Close");
-                if (category != 0) {
-                    // Update showList
-                    
-                    
-                    // Select asc / desc
-                    Parts.sectionHeader("Arrange by");
-                    orderBy = Parts.menu(new String[]{"Ascending", "Descending"}, "Close");
-
-                    if (orderBy != 0) {
-
-                    }
-                }
-            } while (!(category == 0 || orderBy == 0));
+            PrintTutorList(showList, isReport);
         }
-
-        // Loop back
     }
 
+    private void tutorReport() {
+        Parts.header("Genarate Reports");
+        Parts.sectionHeader("Select report type");
+        int option = Parts.menu(new String[]{"Tutor list report (List order adjust in \"Tutor List\")", "Tutor Summary report", "Faculty tutor report"}, "Back to menu");
+
+        switch (option) {
+            case 1:
+                listAllTutor(true);
+                break;
+            case 2:
+                tutorSummaryReport();
+                break;
+            case 3:
+                facultyTutorReport();
+                break;
+        }
+    }
+
+    // -------------Others Methods-------------
     private String[] splitNameIntoLines(String name) {
         int lineCount = (int) Math.ceil((double) name.length() / 20);
         String[] nameLines = new String[lineCount];
@@ -374,5 +355,260 @@ public class ManageTutor {
         }
 
         return nameLines;
+    }
+
+    private void PrintTutorList(ListInterface<Tutor> showList, boolean isReport) {
+        int category = listCategory;
+        int orderby = listOrderBy;
+        do {
+            Iterator<Tutor> iteratorShow = showList.getIterator();
+
+            if (!isReport) {
+                Parts.header("List Tutors");
+            } else if (isReport) {
+                Parts.header("Genarate Tutor List Reports");
+                LocalDateTime now = LocalDateTime.now();
+                String formattedDateTime = formatDateTime(now);
+                System.out.println("Report Generated at : " + formattedDateTime + "\n");
+            }
+            Parts.sectionHeader("All Tutors (Sort by : " + listSortedCategory[category - 1] + ", " + listOrderCatgory[orderby - 1] + ")");
+            TutorListLayout(iteratorShow, isReport);
+
+            if (!isReport) {
+                Parts.header("List Tutors");
+                // Select the category to arrange
+                Parts.sectionHeader("Category to arrange");
+                category = Parts.menu(listSortedCategory, "Close");
+                if (category != 0) {
+                    System.out.println("");
+                    // Select asc / desc
+                    Parts.sectionHeader("Arrange by");
+                    orderby = Parts.menu(listOrderCatgory, "Close");
+
+                    if (orderby != 0) {
+                        mergeSort(showList, category, orderby);
+                    }
+                }
+            } else {
+                category = 0;
+                orderby = 0;
+            }
+        } while (!(category == 0 || orderby == 0));     // Loop back
+    }
+
+    private void TutorListLayout(Iterator<Tutor> iteratorShow, boolean isReport) {
+        System.out.println(" No.  Tutor ID  Name                  Gender  IC            Contact Num  Faculty");
+        System.out.println("---------------------------------------------------------------------------------");
+
+        int index = 1;
+        while (iteratorShow.hasNext()) {
+            Tutor tutor = iteratorShow.next();
+            String name = tutor.getName();
+
+            // Split the name into multiple lines every 20 characters
+            String[] nameLines = splitNameIntoLines(name);
+
+            for (int i = 0; i < nameLines.length; i++) {
+                System.out.printf("%4s  %-8s  %-20s    %-4s  %-12s  %-11s   %-4s%n",
+                        i == 0 ? String.valueOf(index) + "." : "",
+                        i == 0 ? tutor.getTutorID() : "",
+                        nameLines[i],
+                        i == 0 ? tutor.getGender() : "",
+                        i == 0 ? tutor.getIc() : "",
+                        i == 0 ? tutor.getContactNum() : "",
+                        i == 0 ? tutor.getFaculty() : ""
+                );
+            }
+            index++;
+        }
+        if (isReport) {
+            System.out.println("===================================Report End===================================");
+        }
+        System.out.println("");
+        Seperate.systemPause();
+    }
+
+    private static void mergeSort(ListInterface<Tutor> list, int category, int orderBy) {
+        // Check if the list is empty or has only one element
+        if (list.isEmpty() || list.getNumberOfEntries() == 1) {
+            return;
+        }
+
+        // Calculate the midpoint of the list
+        int mid = list.getNumberOfEntries() / 2;
+
+        // Split the list into two halves
+        ListInterface<Tutor> leftList = new LinkedList<>();
+        ListInterface<Tutor> rightList = new LinkedList<>();
+
+        for (int i = 1; i <= mid; i++) {
+            leftList.add(list.getEntry(i));
+        }
+
+        for (int i = mid + 1; i <= list.getNumberOfEntries(); i++) {
+            rightList.add(list.getEntry(i));
+        }
+
+        // Recursively sort both halves
+        mergeSort(leftList, category, orderBy);
+        mergeSort(rightList, category, orderBy);
+
+        // Merge the sorted halves
+        merge(list, leftList, rightList, category, orderBy);
+    }
+
+    private static void merge(ListInterface<Tutor> result, ListInterface<Tutor> left, ListInterface<Tutor> right, int category, int orderBy) {
+        int leftIndex = 1;
+        int rightIndex = 1;
+        int resultIndex = 1;
+
+        // Compare and merge elements from left and right lists
+        while (leftIndex <= left.getNumberOfEntries() && rightIndex <= right.getNumberOfEntries()) {
+            Tutor leftTutor = left.getEntry(leftIndex);
+            Tutor rightTutor = right.getEntry(rightIndex);
+
+            int comparisonResult = compareTutors(leftTutor, rightTutor, category, orderBy);
+
+            if (comparisonResult <= 0) {
+                result.replace(resultIndex, leftTutor);
+                leftIndex++;
+            } else {
+                result.replace(resultIndex, rightTutor);
+                rightIndex++;
+            }
+
+            resultIndex++;
+        }
+
+        // Copy any remaining elements from left and right lists
+        while (leftIndex <= left.getNumberOfEntries()) {
+            result.replace(resultIndex, left.getEntry(leftIndex));
+            leftIndex++;
+            resultIndex++;
+        }
+
+        while (rightIndex <= right.getNumberOfEntries()) {
+            result.replace(resultIndex, right.getEntry(rightIndex));
+            rightIndex++;
+            resultIndex++;
+        }
+    }
+
+    private static int compareTutors(Tutor tutor1, Tutor tutor2, int category, int orderBy) {
+        int comparisonResult = 0;
+
+        switch (category) {
+            case 1: // Tutor ID
+                comparisonResult = tutor1.compareTutorID(tutor2);
+                break;
+            case 2: // Name
+                comparisonResult = tutor1.compareName(tutor2);
+                break;
+            case 3: // Gender
+                comparisonResult = tutor1.compareGender(tutor2);
+                break;
+            case 4: // Faculty
+                comparisonResult = tutor1.compareFaculty(tutor2);
+                break;
+        }
+
+        // Apply ascending or descending order
+        if (orderBy == 2) {
+            comparisonResult = -comparisonResult;
+        }
+
+        return comparisonResult;
+    }
+
+    public static String formatDateTime(LocalDateTime dateTime) {
+        // Define the desired format pattern
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+
+        // Format the LocalDateTime object as a string
+        String formattedDateTime = dateTime.format(formatter);
+
+        return formattedDateTime;
+    }
+
+    public void tutorSummaryReport() {
+        // Initialize counts for total tutors, male, and female tutors for each faculty
+        int totalTutors = 0;
+        int totalMaleTutors = 0;
+        int totalFemaleTutors = 0;
+        int[] facultyCounts = new int[6]; // One slot for each faculty
+
+        // Initialize faculty names
+        String[] facultyNames = {"FAFB", "FCCI", "FOAS", "FOCS", "FOET", "FSSH"};
+
+        // Iterate through the tutors to calculate counts
+        for (int i = 1; i <= tutorSortedList.getNumberOfEntries(); i++) {
+            Tutor tutor = tutorSortedList.getEntry(i);
+            char gender = tutor.getGender();
+            String faculty = tutor.getFaculty();
+
+            // Increment total tutor count
+            totalTutors++;
+
+            // Increment gender-specific counts
+            if (gender == 'M') {
+                totalMaleTutors++;
+            } else if (gender == 'F') {
+                totalFemaleTutors++;
+            }
+
+            // Increment faculty-specific counts
+            for (int j = 0; j < facultyNames.length; j++) {
+                if (facultyNames[j].equals(faculty)) {
+                    facultyCounts[j]++;
+                    break; // Exit the loop once the matching faculty is found
+                }
+            }
+        }
+
+        // Display the summary report
+        Parts.header("Genarate Tutor Summary Report");
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDateTime = formatDateTime(now);
+        System.out.println("Report Generated at : " + formattedDateTime + "\n");
+        System.out.println("Total Tutors: " + totalTutors);
+        System.out.println("Male Tutors: " + totalMaleTutors);
+        System.out.println("Female Tutors: " + totalFemaleTutors);
+        System.out.println("Faculty-wise Tutor Counts:");
+
+        for (int i = 0; i < facultyNames.length; i++) {
+            System.out.println("  " + facultyNames[i] + ": " + facultyCounts[i]);
+        }
+        System.out.println("===============Report End===============");
+        System.out.println("");
+        Seperate.systemPause();
+    }
+
+    private void facultyTutorReport() {
+        Parts.header("Faculty Tutor Report");
+        Parts.sectionHeader("Select faculty");
+
+        String faculty = new TutorManagementUI().selectFaculty();
+
+        ListInterface<Tutor> selectedFacultyList = new LinkedList<>();
+
+        // Use iterator, Go through the tutorSortedList
+        Iterator<Tutor> iteratorShow = tutorSortedList.getIterator();
+
+        // Compare the faculty in each entry
+        while (iteratorShow.hasNext()) {
+            Tutor tutor = iteratorShow.next();
+            if (tutor.getFaculty().equals(faculty)) {
+                // Same faculty, add into selectedFacultyList
+                selectedFacultyList.add(tutor);
+            }
+        }
+
+        Iterator<Tutor> iteratorSelectedFaculty = selectedFacultyList.getIterator();
+        Parts.header("Faculty Tutor Report");
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDateTime = formatDateTime(now);
+        System.out.println("Report Generated at : " + formattedDateTime + "\n");
+        // Print out selectedFacultyList
+        TutorListLayout(iteratorSelectedFaculty, true);
     }
 }

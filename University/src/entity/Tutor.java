@@ -105,68 +105,24 @@ public class Tutor implements Comparable<Tutor> {
         return this.tutorID.compareTo(o.tutorID);
     }
 
-    public void quickSort(LinkedList<Tutor> list, String sortBy) {
-        quickSort(list, 0, list.getNumberOfEntries() - 1, sortBy);
+    // Comparison method for tutor ID
+    public int compareTutorID(Tutor otherTutor) {
+        return this.tutorID.compareTo(otherTutor.getTutorID());
     }
 
-    private void quickSort(LinkedList<Tutor> list, int low, int high, String sortBy) {
-        if (low < high) {
-            // Get the pivot index after partitioning
-            int pivotIndex = partition(list, low, high, sortBy);
-
-            // Recursively sort the two sublists
-            quickSort(list, low, pivotIndex - 1, sortBy);
-            quickSort(list, pivotIndex + 1, high, sortBy);
-        }
+    // Comparison method for name
+    public int compareName(Tutor otherTutor) {
+        return this.name.compareTo(otherTutor.getName());
     }
 
-    private int partition(LinkedList<Tutor> list, int low, int high, String sortBy) {
-        // Choose the pivot element (in this case, the element at 'high' index)
-        Tutor pivot = list.getEntry(high);
-
-        // Initialize the index of the smaller element
-        int i = low - 1;
-
-        for (int j = low; j < high; j++) {
-            // Compare tutors based on the selected field (sortBy)
-            int comparisonResult = compareTutors(list.getEntry(j), pivot, sortBy);
-
-            // If the current tutor is smaller or equal to the pivot, swap them
-            if (comparisonResult <= 0) {
-                i++;
-                swap(list, i, j);
-            }
-        }
-
-        // Swap the pivot element with the element at (i + 1) to place pivot in the correct position
-        swap(list, i + 1, high);
-
-        // Return the index of the pivot element
-        return i + 1;
+    // Comparison method for gender
+    public int compareGender(Tutor otherTutor) {
+        return Character.compare(this.gender, otherTutor.getGender());
     }
 
-    // Compare tutors based on the selected field (sortBy)
-    private int compareTutors(Tutor tutor1, Tutor tutor2, String sortBy) {
-        switch (sortBy) {
-            case "tutorID":
-                return tutor1.getTutorID().compareTo(tutor2.getTutorID());
-            case "name":
-                return tutor1.getName().compareTo(tutor2.getName());
-            case "gender":
-                return (tutor1.getGender() + "").compareTo(tutor2.getGender() + "");
-            case "faculty":
-                return tutor1.getFaculty().compareTo(tutor2.getFaculty());
-            default:
-                // By default, compare by tutorID
-                return tutor1.getTutorID().compareTo(tutor2.getTutorID());
-        }
-    }
-
-    // Helper method to swap two tutors in the list
-    private void swap(LinkedList<Tutor> list, int i, int j) {
-        Tutor temp = list.getEntry(i);
-        list.replace(i, list.getEntry(j));
-        list.replace(j, temp);
+    // Comparison method for faculty
+    public int compareFaculty(Tutor otherTutor) {
+        return this.faculty.compareTo(otherTutor.getFaculty());
     }
 
     public String generateNewTutorID(SortedListInterface<Tutor> tutorSortedList) {
