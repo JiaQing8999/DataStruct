@@ -17,7 +17,7 @@ import java.util.Scanner;
 import utility.Seperate;
 import utility.Validate;
 
-public class TestTutorialGroup {
+public class TutorialGroupDriver {
 
     Scanner scanner = new Scanner(System.in);
     TutorialGroup group = new TutorialGroup();
@@ -28,7 +28,7 @@ public class TestTutorialGroup {
     private final String fileName = "tutorialGrp.txt";
     int numDel, numAdd = 0;
 
-    public TestTutorialGroup() {
+    public TutorialGroupDriver() {
 
         bTree = TutorialGrpDAO.readTutorialGrpFromFile(fileName);
 
@@ -36,7 +36,7 @@ public class TestTutorialGroup {
 
     public static void main(String[] args) {
 
-        TestTutorialGroup tg = new TestTutorialGroup();
+        TutorialGroupDriver tg = new TutorialGroupDriver();
         tg.runTutorialGroupTest();
     }
 
