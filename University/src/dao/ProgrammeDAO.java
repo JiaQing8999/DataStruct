@@ -75,9 +75,4 @@ public class ProgrammeDAO {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(readProgFromFile("programme.txt"));
-        //System.out.println(readProgTutorialGroupFromFile("programmeTutorialGroup.txt"));
-    }
-
 }

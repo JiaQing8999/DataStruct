@@ -5,9 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -236,77 +234,6 @@ public class Validate {
         return true;
     }
 
-    /*
-    public static boolean icValidation(String ic) {
-        if (ic.length() != 12) {
-            System.out.println("  Invalid length of ic");
-            return false;
-        } else {
-            if (Integer.parseInt(ic.substring(0, 2)) <= 20) {
-                if (dateChecking(ic.substring(4, 6) + "/" + ic.substring(2, 4) + "/20" + ic.substring(0, 2)) == false) {
-                    System.out.println("  Invalid ic birthdate format");
-                    return false;
-                }
-            } else {
-                if (dateChecking(ic.substring(4, 6) + "/" + ic.substring(2, 4) + "/19" + ic.substring(0, 2)) == false) {
-                    System.out.println("  Invalid ic birthdate format");
-                    return false;
-                }
-            }
-
-            for (int i = 0; i < ic.length(); i++) {
-                if (Character.isDigit(ic.charAt(i)) == false) {
-                    System.out.println("  Invalid ic number format");
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-     */
-    //Date input and validation function
-    public static String dateInput(String promptMsg, String errorMsg) {
-        Scanner sc = new Scanner(System.in);
-        String input;
-        boolean invalidInput;
-
-        do {
-            invalidInput = false;
-            System.out.print(promptMsg);
-            input = sc.next();
-
-            if (!dateChecking(input)) {
-                System.out.println(errorMsg);
-                invalidInput = true;
-            }
-
-        } while (invalidInput);
-
-        return input;
-    }
-
-    //Birthdate input and validation function, birthdate must same as stated in the ic
-    public static String birthDateInput(String promptMsg, String errorMsg, String ic) {
-        Scanner sc = new Scanner(System.in);
-        String input;
-        boolean invalidInput;
-
-        do {
-            invalidInput = false;
-            input = dateInput(promptMsg, errorMsg);
-
-            if (ic.charAt(0) != input.charAt(8) || ic.charAt(1) != input.charAt(9)
-                    || ic.charAt(2) != input.charAt(3) || ic.charAt(3) != input.charAt(4)
-                    || ic.charAt(4) != input.charAt(0) || ic.charAt(5) != input.charAt(1)) {
-                System.out.println("  Birthdate didn't match with IC");
-                invalidInput = true;
-            }
-        } while (invalidInput);
-
-        return input;
-    }
-
     //Date format validation function
     public static boolean dateChecking(String dateStr) {
         DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
@@ -351,35 +278,5 @@ public class Validate {
         }
 
         return "Invalid mode selection";
-    }
-
-    //Age calculation function
-    public static int ageCalc(String birthDate) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        long difference_In_Years = 0;
-        try {
-
-            // parse method is used to parse
-            // the text from a string to
-            // produce the date
-            Date d1 = sdf.parse(birthDate);
-            Date d2 = sdf.parse(getCurrentDateTime("date"));
-
-            // Calucalte time difference
-            // in milliseconds
-            long difference_In_Time
-                    = d2.getTime() - d1.getTime();
-
-            // Calucalte time difference in seconds,
-            // minutes, hours, years, and days
-            difference_In_Years = TimeUnit.MILLISECONDS
-                    .toDays(difference_In_Time)
-                    / 365l;
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return (int) difference_In_Years;
     }
 }
