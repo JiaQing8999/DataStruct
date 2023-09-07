@@ -217,26 +217,34 @@ public class TutorialGroupDriver {
     }
 
     public void listATGroup() {
-        //list all students of a specific tutorial grp
+        // List all students of a specific tutorial group
         char cont;
 
         do {
-            //clear screen and header
+            // Clear the screen and header
             Seperate.clearScreen();
             Parts.header("List A Tutorial Group's Student");
             int showTGroup = tGrpUI.inputCurrentTutorialGroup();
 
-            System.out.println(
-                    "Tutorial Group " + showTGroup + " Students:");
+            System.out.println("Tutorial Group " + showTGroup + " Students:");
+
             Iterator<TutorialGroup> it = bTree.getInorderIterator();
 
             System.out.println("\nID         Student Name    \n");
             System.out.println("--------------------------\n");
+
+            boolean found = false; // Flag to check if any students were found in the group
+
             while (it.hasNext()) {
                 TutorialGroup student = it.next();
                 if (student.getGroup() == showTGroup) {
                     System.out.println(student.getStudentId() + "    " + student.getStudentName());
+                    found = true; // Set the flag to true if at least one student is found
                 }
+            }
+
+            if (!found) {
+                System.out.println("No students in Tutorial Group " + showTGroup);
             }
 
             cont = Validate.yesNoInput("Continue to show a tutorial group's student? (Y)es/(N)o > ", "Character input only.");
