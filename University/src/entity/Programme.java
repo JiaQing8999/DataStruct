@@ -104,7 +104,7 @@ public class Programme implements Comparable<Programme> {
 
     public String toStringForTutorial() {
         String str = "  Programme Code          : " + progCode + "\n"
-                + "  Group: ";
+                + "  Group                   : ";
 
         for (int i = 0; i < tutorialGroup.getNumberOfEntries(); i++) {
             str += tutorialGroup.getEntry(i);
