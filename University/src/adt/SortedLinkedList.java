@@ -2,6 +2,11 @@ package adt;
 
 import java.util.Iterator;
 
+/**
+ *
+ * @author Lim Jia Qing
+ *
+ */
 public class SortedLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 
     private Node firstNode;
