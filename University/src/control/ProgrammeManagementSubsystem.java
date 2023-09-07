@@ -57,6 +57,9 @@ public class ProgrammeManagementSubsystem {
                 case 8:
                     listAllTutorialGroupsForProgramme();
                     break;
+                case 9:
+                    generateReport();
+                    break;
             }
 
         } while (selection != 0);
@@ -265,7 +268,7 @@ public class ProgrammeManagementSubsystem {
                     System.out.println("  " + tutorialGroupList.getEntry(i));
                 }
             } else {
-                System.out.println("\nNo tutorial groups found for this programme.");
+                System.out.println("\nNo tutorial groups found in this programme.");
             }
         } else {
             System.out.println("\nNo such programme found.");
@@ -290,7 +293,7 @@ public class ProgrammeManagementSubsystem {
                 ProgrammeDAO.writeProgToFile(fileName, progSortedList);
                 System.out.println("\nTutorial group added successfully!\n");
             } else {
-                System.out.println("\nTutorial group already exists for this programme.\n");
+                System.out.println("\nTutorial group already exists in this programme.\n");
             }
         } else {
             System.out.println("\nNo such programme found.\n");
@@ -314,7 +317,7 @@ public class ProgrammeManagementSubsystem {
                 ProgrammeDAO.writeProgToFile(fileName, progSortedList);
                 System.out.println("\nTutorial group removed successfully!\n");
             } else {
-                System.out.println("\nTutorial group not found for this programme.\n");
+                System.out.println("\nTutorial group not found in this programme.\n");
             }
         } else {
             System.out.println("\nNo such programme found.\n");
@@ -325,10 +328,20 @@ public class ProgrammeManagementSubsystem {
     
     public void generateReport(){
         Parts.header("Generate Report");
-        System.out.println("");
         Parts.sectionHeader("Summary");
         
-        
+        if (!progSortedList.isEmpty()) {
+            Iterator<Programme> it = progSortedList.getIterator();
+            System.out.println("  -------------------------------------------------------");
+            System.out.println("   Programme Code                   Total Tutorial Group");
+            System.out.println("  -------------------------------------------------------");
+            while (it.hasNext()) {
+                Programme prog = it.next();
+                System.out.printf("   %-5s %40s\n", prog.getProgCode(), prog.getTutorialGroup().getNumberOfEntries());
+            }
+        }
+        System.out.println("");
+        Seperate.systemPause();
     }
 
     public Programme searchResult(String code) {
