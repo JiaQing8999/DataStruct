@@ -108,14 +108,19 @@ public class BinarySearchTree<T extends Comparable<T>> implements BinarySearchTr
             T rootData = rootNode.data;
             int comparison = entry.compareTo(rootData);
 
+            //The entry to remove is found in the current node, and it's removed.
             if (comparison == 0) {      // entry == root entry
                 oldEntry.set(rootData);
                 rootNode = removeFromRoot(rootNode);
-            } else if (comparison < 0) {  // entry < root entry
+            } else if (comparison < 0) {  //entry < root entry
+            // the entry to remove is smaller than the current node's value
+            //so the search continues in the left subtree.
                 Node leftChild = rootNode.left;
                 Node subtreeRoot = removeEntry(leftChild, entry, oldEntry);
                 rootNode.left = subtreeRoot;
             } else {                      // entry > root entry
+                //The entry to remove is larger than the current node's value
+                //so the search continues in the right subtree.
                 Node rightChild = rootNode.right;
                 rootNode.right = removeEntry(rightChild, entry, oldEntry);
             }
@@ -131,6 +136,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements BinarySearchTr
      * @return the root node of the revised sub tree
      */
     private Node removeFromRoot(Node rootNode) {
+        
         // Case 1: rootNode has two children
         if (rootNode.left != null && rootNode.right != null) {
             // find node with largest entry in left subtree
@@ -288,7 +294,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements BinarySearchTr
     @Override
     public T getLargestValue(){
         if (!isEmpty()) {
-            return findMaxNode(root).data;
+            return findLargest(root).data;
         } else {
             return null;
         }
@@ -302,13 +308,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements BinarySearchTr
 
         return rootNode;
     }
-    private Node findMaxNode(Node rootNode) {
-        if (rootNode.right != null) {
-            rootNode = findMaxNode(rootNode.right);
-        }
-
-        return rootNode;
-    }
+    
     
     
 

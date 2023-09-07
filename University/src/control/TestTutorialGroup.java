@@ -4,7 +4,6 @@ package control;
  *
  * @author Phua Mei Kee
  */
-
 import adt.ArrayQueue;
 import adt.BinarySearchTree;
 import adt.BinarySearchTreeInterface;
@@ -48,28 +47,28 @@ public class TestTutorialGroup {
         do {
             selection = tGrpUI.getTutorialGrpMenuSelection();
             switch (selection) {
-                case 1 :
+                case 1:
                     addStudent();
                     break;
-                case 2 :
+                case 2:
                     removeStudent();
                     break;
-                case 3 :
+                case 3:
                     changeTGroup();
                     break;
-                case 4 :
+                case 4:
                     findStudent();
                     break;
-                case 5 :
+                case 5:
                     listATGroup();
                     break;
-                case 6 :
+                case 6:
                     filterTGroup();
                     break;
-                case 7 :
+                case 7:
                     report();
                     break;
-                case 0 :
+                case 0:
                     System.out.println("Close.");
                     break;
             }
@@ -107,7 +106,7 @@ public class TestTutorialGroup {
             //loop 
             cont = Validate.yesNoInput("Add another student? (Y)es/(N)o > ", "  Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        
+
         TutorialGrpDAO.writeTutorialGrpToFile(fileName, bTree);
         Seperate.systemPause();
     }
@@ -145,7 +144,7 @@ public class TestTutorialGroup {
             //loop 
             cont = Validate.yesNoInput("Remove another student? (Y)es/(N)o > ", "  Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        
+
         TutorialGrpDAO.writeTutorialGrpToFile(fileName, bTree);
         Seperate.systemPause();
 
@@ -184,7 +183,7 @@ public class TestTutorialGroup {
             //loop 
             cont = Validate.yesNoInput("Change another student's tutorial group? (Y)es/(N)o > ", "  Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        
+
         TutorialGrpDAO.writeTutorialGrpToFile(fileName, bTree);
         Seperate.systemPause();
 
@@ -213,7 +212,7 @@ public class TestTutorialGroup {
             System.out.printf("The student is %sin group %d%n", found ? "" : "not ", searchTGroup);
             cont = Validate.yesNoInput("Continue to search another student? (Y)es/(N)o > ", "Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        
+
         Seperate.systemPause();
     }
 
@@ -242,7 +241,7 @@ public class TestTutorialGroup {
 
             cont = Validate.yesNoInput("Continue to show a tutorial group's student? (Y)es/(N)o > ", "Character input only.");
         } while (cont == 'Y' || cont == 'y');
-        
+
         Seperate.systemPause();
     }
 
@@ -253,13 +252,13 @@ public class TestTutorialGroup {
         do {
             selection = tGrpUI.getFilterGroupMenuSelection();
             switch (selection) {
-                case 1 :
+                case 1:
                     mostStudentsTG();
                     break;
-                case 2 :
+                case 2:
                     leastStudentsTG();
                     break;
-                case 0 :
+                case 0:
                     System.out.println("Close.");
                     break;
             }
@@ -370,11 +369,17 @@ public class TestTutorialGroup {
         Seperate.clearScreen();
         Parts.header("Reports");
         // the first students
-        System.out.println("The first student for this semester : \n" + bTree.getSmallestValue());
+        System.out.println("The first student for this semester : \n" );
+        System.out.println("\nID      Student Name          Tutorial Group\n");
+        System.out.println("------------------------------------------------\n");
+        System.out.println(bTree.getSmallestValue());
         // the last student
-        System.out.println("\nThe last student for this semester : \n" + bTree.getLargestValue());
+        System.out.println("\n\n\nThe last student for this semester : \n");
+        System.out.println("\nID      Student Name          Tutorial Group\n");
+        System.out.println("------------------------------------------------\n");
+        System.out.println(bTree.getLargestValue());
         // the total of students
-        System.out.println("\nTotal students for this semester is " + calcTotalStudents() + " students");
+        System.out.println("\n\n\nTotal students for this semester is " + calcTotalStudents() + " students");
         // add how many students(list), delete how many student(list),searched how many students
         System.out.println("\nStudents added this time: " + numAdd);
         System.out.println("\nID      Student Name          Tutorial Group\n");
