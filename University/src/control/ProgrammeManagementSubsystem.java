@@ -1,8 +1,6 @@
 package control;
 
-import adt.ListInterface;
-import adt.SortedLinkedList;
-import adt.SortedListInterface;
+import adt.*;
 import boundary.ProgrammeUI;
 import boundary.Parts;
 import dao.ProgrammeDAO;
@@ -261,7 +259,7 @@ public class ProgrammeManagementSubsystem {
         Programme prog = searchResult(code);
 
         if (prog != null) {
-            SortedListInterface<String> tutorialGroupList = prog.getTutorialGroup();
+            ListInterface<String> tutorialGroupList = prog.getTutorialGroup();
 
             if (!tutorialGroupList.isEmpty()) {
                 System.out.println("");
