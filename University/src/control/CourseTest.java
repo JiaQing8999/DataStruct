@@ -3,8 +3,7 @@
  */
 package control;
 
-import adt.DoublyLinkedList;
-import adt.ListInterface;
+import adt.*;
 import boundary.CourseUI;
 import boundary.Parts;
 import entity.Course;
@@ -16,7 +15,7 @@ import utility.Validate;
 public class CourseTest {
 
     CourseUI cui = new CourseUI();
-    ListInterface<Course> c = new DoublyLinkedList<>();
+    private ListInterface<Course> c = new DoublyLinkedList<>();
     Scanner s = new Scanner(System.in);
 
     public CourseTest() {

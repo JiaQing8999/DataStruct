@@ -1,5 +1,6 @@
 package control;
 
+import adt.ListInterface;
 import adt.SortedLinkedList;
 import adt.SortedListInterface;
 import boundary.ProgrammeUI;
@@ -16,7 +17,7 @@ import utility.*;
 public class ProgrammeManagementSubsystem {
 
     private ProgrammeUI progUI = new ProgrammeUI();
-    private SortedListInterface<Programme> progSortedList = new SortedLinkedList<>();
+    private ListInterface<Programme> progSortedList = new SortedLinkedList<>();
     private final String fileName = "programme.txt";
 
     public ProgrammeManagementSubsystem() {

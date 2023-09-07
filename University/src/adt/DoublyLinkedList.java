@@ -5,7 +5,7 @@ package adt;
 
 import java.util.Iterator;
 
-public class DoublyLinkedList<T> implements ListInterface<T> {
+public class DoublyLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 
     private Node head;  //reference to first node in the list
     private Node tail;  //reference to last node in the list
@@ -66,7 +66,7 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
             return true;
         }
     }
-
+    
     @Override
     public boolean replace(int givenPosition, T newEntry) {
 
@@ -152,6 +152,7 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
         return new DoublyLinkedIterator();
     }
 
+    @Override
     public String toString() {
         String outputStr = "";
         Node currentNode = head;
@@ -200,15 +201,10 @@ public class DoublyLinkedList<T> implements ListInterface<T> {
             return currentElement;
         }
     }
-
-    //------------------method that didn't use------------------
+    
+    //---------------Method not used---------------
     @Override
-    public boolean isFull() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean add(int newPosition, T newEntry) {
+    public T remove(T anEntry) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
