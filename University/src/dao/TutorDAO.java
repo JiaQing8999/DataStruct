@@ -11,8 +11,8 @@ import java.util.Iterator;
  */
 public class TutorDAO {
 
-    public static SortedListInterface<Tutor> readTutorsFromFile(String fileName) {
-        SortedListInterface<Tutor> tutorList = new SortedLinkedList<>();
+    public static ListInterface<Tutor> readTutorsFromFile(String fileName) {
+        ListInterface<Tutor> tutorList = new SortedLinkedList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -45,7 +45,7 @@ public class TutorDAO {
         return tutorList;
     }
 
-    public static void writeTutorsToFile(String fileName, SortedListInterface<Tutor> tutorList) {
+    public static void writeTutorsToFile(String fileName, ListInterface<Tutor> tutorList) {
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));

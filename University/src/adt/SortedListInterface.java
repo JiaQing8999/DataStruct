@@ -6,7 +6,7 @@ import java.util.Iterator;
  * @author Lim Jia Qing
  * @param <T>
  */
-public interface SortedListInterface<T extends Comparable<T>> {
+public interface SortedListInterface<T> {
 
     public Iterator<T> getIterator();
 

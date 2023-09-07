@@ -1,32 +1,38 @@
 package entity;
 
-import adt.ListInterface;
-import adt.SortedLinkedList;
-import adt.SortedListInterface;
+import adt.*;
 import java.util.Objects;
 
 /**
  *
  * @author Khor Zhi Ying
  */
-public class Programme implements Comparable<Programme>{
+public class Programme implements Comparable<Programme> {
 
     private String progCode;
     private String progName;
     private int progDurationYear;
-    private SortedListInterface<String> tutorialGroup = new SortedLinkedList<>();
+    private ListInterface<String> tutorialGroup = new SortedArrayList<>();
 
     public Programme() {
-    }
-
-    public Programme(String progCode) {
-        this.progCode = progCode;
     }
 
     public Programme(String progCode, String progName, int progDurationYear) {
         this.progCode = progCode;
         this.progName = progName;
         this.progDurationYear = progDurationYear;
+    }
+
+    public Programme(String progCode, ListInterface<String> tutorialGroup) {
+        this.progCode = progCode;
+        this.tutorialGroup = tutorialGroup;
+    }
+
+    public Programme(String progCode, String progName, int progDurationYear, ListInterface<String> tutorialGroup) {
+        this.progCode = progCode;
+        this.progName = progName;
+        this.progDurationYear = progDurationYear;
+        this.tutorialGroup = tutorialGroup;
     }
 
     public String getProgCode() {
@@ -53,18 +59,25 @@ public class Programme implements Comparable<Programme>{
         this.progDurationYear = progDurationYear;
     }
 
-    public SortedListInterface<String> getTutorialGroup() {
+    public ListInterface<String> getTutorialGroup() {
         return tutorialGroup;
     }
 
-    public void setTutorialGroup(SortedListInterface<String> tutorialGroup) {
+    public void setTutorialGroup(ListInterface<String> tutorialGroup) {
         this.tutorialGroup = tutorialGroup;
     }
-    
-    public String writeFileFormatData(){
-        return progCode + "|" + progName + "|" + progDurationYear;
+
+    public String writeFileFormatData() {
+        String str = "";
+        for (int i = 0; i < tutorialGroup.getNumberOfEntries(); i++) {
+            str += tutorialGroup.getEntry(i);
+            if (i < tutorialGroup.getNumberOfEntries() - 1) {
+                str += "%";
+            }
+        }
+        return progCode + "|" + progName + "|" + progDurationYear + "|" + str;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -82,11 +95,25 @@ public class Programme implements Comparable<Programme>{
 
     @Override
     public String toString() {
-        String str = "Programme Code: " + progCode + "\n"
-                + "Programme Name: " + progName + "\n"
-                + "Programme Duration Year: " + progDurationYear;
-        
-        return "\b" + str;
+        String str = "  Programme Code          : " + progCode + "\n"
+                + "  Programme Name          : " + progName + "\n"
+                + "  Programme Duration Year : " + progDurationYear + "\n";
+
+        return str;
+    }
+
+    public String toStringForTutorial() {
+        String str = "  Programme Code          : " + progCode + "\n"
+                + "  Group: ";
+
+        for (int i = 0; i < tutorialGroup.getNumberOfEntries(); i++) {
+            str += tutorialGroup.getEntry(i);
+            if (i < tutorialGroup.getNumberOfEntries() - 1) {
+                str += ", ";
+            }
+        }
+
+        return "\b" + str.toString();
     }
 
     @Override

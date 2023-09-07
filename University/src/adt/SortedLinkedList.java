@@ -2,7 +2,7 @@ package adt;
 
 import java.util.Iterator;
 
-public class SortedLinkedList<T extends Comparable<T>> implements SortedListInterface<T> {
+public class SortedLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 
     private Node firstNode;
     private int numberOfEntries;
@@ -176,5 +176,21 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedListInte
             this.data = data;
             this.next = next;
         }
+    }
+    
+    //---------------Method not used---------------
+    @Override
+    public boolean remove(int givenPosition) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean replace(int givenPosition, T newEntry) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int indexOf(T anEntry) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
