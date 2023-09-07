@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author
+ * @author Lim Jia Qing
  */
 public class LinkedList<T> implements ListInterface<T> {
 
