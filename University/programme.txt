@@ -2,4 +2,4 @@ DCS|Diploma in Computer Science|2|G1%G2%G3%G4%G5
 DFT|Diploma in Information Technology|2|G1%G2%G3%G4%G5%G6%G7%G8
 RDS|Bachelor of Data Science|3|G1%G2%G3
 RSD|Bachelor of Software Development|3|G1%G2%G3%G4%G5
-RSW|Bachelor of Software Engineering|3|G1%G2%G3%G4%G7
+RSW|Bachelor of Software Engineering|3|G1%G3%G4%G7
